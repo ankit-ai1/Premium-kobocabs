@@ -15,24 +15,62 @@
 
 export type Place = { label: string; lat: number; lon: number };
 
+const LOCAL_PLACES: Place[] = [
+  { label: "New Delhi, Delhi, India", lat: 28.613939, lon: 77.209023 },
+  { label: "Delhi, India", lat: 28.704060, lon: 77.102493 },
+  { label: "Noida, Uttar Pradesh, India", lat: 28.535517, lon: 77.391029 },
+  { label: "Gurgaon, Haryana, India", lat: 28.459497, lon: 77.026638 },
+  { label: "Bareilly, Uttar Pradesh, India", lat: 28.367031, lon: 79.430436 },
+  { label: "Lucknow, Uttar Pradesh, India", lat: 26.846708, lon: 80.946159 },
+  { label: "Agra, Uttar Pradesh, India", lat: 27.176670, lon: 78.008074 },
+  { label: "Jaipur, Rajasthan, India", lat: 26.912434, lon: 75.787271 },
+  { label: "Nainital, Uttarakhand, India", lat: 29.391910, lon: 79.454210 },
+  { label: "Mussoorie, Uttarakhand, India", lat: 30.4590, lon: 78.0667 },
+  { label: "Haridwar, Uttarakhand, India", lat: 29.9457, lon: 78.1642 },
+  { label: "Rishikesh, Uttarakhand, India", lat: 30.0869, lon: 78.2676 },
+  { label: "Dehradun, Uttarakhand, India", lat: 30.3165, lon: 78.0322 },
+  { label: "Varanasi, Uttar Pradesh, India", lat: 25.3176, lon: 82.9739 },
+  { label: "Chandigarh, India", lat: 30.7333, lon: 76.7794 },
+  { label: "Amritsar, Punjab, India", lat: 31.6340, lon: 74.8723 },
+  { label: "Mathura, Uttar Pradesh, India", lat: 27.4924, lon: 77.6737 },
+  { label: "Ayodhya, Uttar Pradesh, India", lat: 26.7950, lon: 82.1945 },
+  { label: "Prayagraj, Uttar Pradesh, India", lat: 25.4358, lon: 81.8463 },
+  { label: "Moradabad, Uttar Pradesh, India", lat: 28.8380, lon: 78.7736 },
+];
+
+function localSuggestions(text: string): Place[] {
+  const query = text.trim().toLowerCase();
+  if (query.length < 2) return [];
+  return LOCAL_PLACES.filter((place) => place.label.toLowerCase().includes(query)).slice(0, 6);
+}
+
 /** Live address suggestions. Returns [] on any failure — never throws. */
 export async function autocomplete(text: string): Promise<Place[]> {
-  if (text.trim().length < 3) return [];
+  const cleaned = text.trim();
+  if (!cleaned) return [];
+
+  const local = localSuggestions(cleaned);
+  if (cleaned.length < 3) return local;
+
   const url =
     `https://nominatim.openstreetmap.org/search` +
     `?q=${encodeURIComponent(text)}` +
     `&format=json&countrycodes=in&limit=6&addressdetails=1`;
   try {
     const res = await fetch(url, { headers: { "Accept-Language": "en" } });
-    if (!res.ok) return [];
+    if (!res.ok) return local;
     const data = (await res.json()) as { display_name: string; lat: string; lon: string }[];
-    return data.map((r) => ({
+    const remote = data.map((r) => ({
       label: r.display_name,
       lat: parseFloat(r.lat),
       lon: parseFloat(r.lon),
     }));
+    return [
+      ...local,
+      ...remote.filter((place) => !local.some((existing) => existing.label === place.label)),
+    ].slice(0, 6);
   } catch {
-    return [];
+    return local;
   }
 }
 

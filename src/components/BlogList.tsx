@@ -21,13 +21,34 @@ const filters = [ALL, ...categories.map((c) => c.name)];
 
 export default function BlogList() {
   const [active, setActive] = useState(ALL);
+  const [search, setSearch] = useState("");
+  const term = search.trim().toLowerCase();
 
-  const visible =
-    active === ALL ? posts : posts.filter((p) => p.category === active);
+  const visible = posts.filter((p) => {
+    const matchesCategory = active === ALL || p.category === active;
+    if (!matchesCategory) return false;
+    if (!term) return true;
+
+    const searchable = [
+      p.title,
+      p.excerpt,
+      p.category,
+      p.date,
+      ...p.content.map((block) => ("h2" in block ? block.h2 : block.p)),
+    ]
+      .join(" ")
+      .toLowerCase();
+
+    return searchable.includes(term);
+  });
+
+  const suggestions = term
+    ? visible.slice(0, 4)
+    : [];
 
   // The featured slot only makes sense on the unfiltered list; inside a
   // category every post goes into the grid so nothing gets buried.
-  const featured = active === ALL ? visible[0] : null;
+  const featured = active === ALL && !term ? visible[0] : null;
   const grid = featured ? visible.slice(1) : visible;
 
   const chip = (label: string) =>
@@ -175,14 +196,49 @@ export default function BlogList() {
               Search Travel Content
             </h3>
             <div className="mt-3 flex gap-2">
-              <input placeholder="Search…" className="input !py-2.5" />
+              <input
+                value={search}
+                onChange={(event) => setSearch(event.currentTarget.value)}
+                placeholder="Search…"
+                className="input !py-2.5"
+              />
               <button
                 className="chip-taxi h-auto w-11 shrink-0 rounded-lg transition-transform duration-300 ease-out hover:scale-105"
                 aria-label="Search"
+                type="button"
               >
                 <Search className="h-4 w-4" />
               </button>
             </div>
+
+            {term && (
+              <div className="mt-4 space-y-3">
+                <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-widest text-ink-muted">
+                  <span>Suggestions</span>
+                  <span>{visible.length} match{visible.length === 1 ? "" : "es"}</span>
+                </div>
+
+                {suggestions.length > 0 ? (
+                  <ul className="space-y-3">
+                    {suggestions.map((post) => (
+                      <li key={post.slug}>
+                        <Link
+                          href={`/blog/${post.slug}`}
+                          className="block rounded-2xl border border-ink/[0.08] px-3 py-3 text-sm font-semibold text-ink transition-colors hover:border-taxi/60 hover:text-taxi"
+                        >
+                          <span className="block line-clamp-2">{post.title}</span>
+                          <span className="mt-1 block text-xs text-ink-muted">{post.category}</span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-sm leading-relaxed text-ink-muted">
+                    No related articles found for "{search}".
+                  </p>
+                )}
+              </div>
+            )}
           </div>
 
           <div className="rounded-2xl bg-ink p-6 text-white shadow-[var(--shadow-card)]">
