@@ -57,6 +57,9 @@ body {
     @apply font-display uppercase;
     letter-spacing: 0.012em;
     line-height: 1;
+    /* Without this a heading that wraps drops its last two or three words onto
+       a line of their own. Balance evens the lines out instead. */
+    text-wrap: balance;
   }
 
   .t-hero {
@@ -88,11 +91,14 @@ body {
     line-height: 1.25;
   }
 
-  /* Highlighted keyword — inline yellow text, no box. The hairline dark edge
-     holds it together on white sections where pure #FFCE00 is low contrast. */
+  /* Highlighted keyword — pure inline text. It inherits the heading's font,
+     size and line-height, so it shares the exact baseline of the black text
+     beside it. Nothing here may shift it vertically: no display change, no
+     padding, border, background or vertical-align. A drop shadow counts too —
+     a 1px dark edge under the yellow glyphs alone reads as a dropped baseline
+     next to unshadowed black text, which is why there isn't one. */
   .hi {
     color: var(--taxi);
-    text-shadow: 0 1px 0 rgba(11, 11, 11, 0.18);
   }
 
   /* Big yellow numerals (fares, stats). Anton's digits and comma separators

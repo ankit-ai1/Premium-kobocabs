@@ -110,7 +110,7 @@ export default function Hero() {
           where browser chrome eats into 100vh; vh stays as the fallback. */}
       <div className="h-content wrap relative z-10 flex min-h-[calc(100vh-70px)] flex-col justify-center py-16 supports-[height:100svh]:min-h-[calc(100svh-70px)]">
         {/* Each line gets its own mask so .h-line can slide up from beneath it.
-            The small pad keeps the yellow text-shadow from being clipped. */}
+            The small pad keeps Anton's glyphs from being clipped by the mask. */}
         <h1 className="display t-hero max-w-5xl text-white">
           <span className="block overflow-hidden pb-[0.06em]">
             <span className="h-line block">Your Journey,</span>

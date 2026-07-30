@@ -1,27 +1,45 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { posts, site } from "@/data/site";
+import { blogCategories as categories, posts, site } from "@/data/site";
 import { Arrow, Clock, Search } from "@/components/Icons";
 import Reveal from "@/components/Reveal";
 import { DisplayHeading } from "@/components/Bits";
 import BookLink from "@/components/BookLink";
 
 const ALL = "All";
-const categories = Array.from(
-  posts.reduce((map, post) => {
-    map.set(post.category, (map.get(post.category) ?? 0) + 1);
-    return map;
-  }, new Map<string, number>())
-).map(([name, count]) => ({ name, count }));
-
 const filters = [ALL, ...categories.map((c) => c.name)];
+
+/** One featured card plus a 2×2 grid below it. */
+const PER_PAGE = 5;
+
+type Lenis = { scrollTo: (t: HTMLElement, o?: Record<string, unknown>) => void };
+
+/**
+ * Page numbers to render, collapsing long runs to an ellipsis so the control
+ * stays one line as the blog grows: 1 … 4 5 6 … 12.
+ */
+function pageNumbers(total: number, current: number): (number | "gap")[] {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+
+  const shown = Array.from(
+    new Set([1, current - 1, current, current + 1, total])
+  )
+    .filter((n) => n >= 1 && n <= total)
+    .sort((a, b) => a - b);
+
+  return shown.flatMap((n, i) =>
+    i > 0 && n - shown[i - 1] > 1 ? (["gap", n] as (number | "gap")[]) : [n]
+  );
+}
 
 export default function BlogList() {
   const [active, setActive] = useState(ALL);
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const topRef = useRef<HTMLDivElement>(null);
   const term = search.trim().toLowerCase();
 
   const visible = posts.filter((p) => {
@@ -46,14 +64,50 @@ export default function BlogList() {
     ? visible.slice(0, 4)
     : [];
 
-  // The featured slot only makes sense on the unfiltered list; inside a
-  // category every post goes into the grid so nothing gets buried.
-  const featured = active === ALL && !term ? visible[0] : null;
-  const grid = featured ? visible.slice(1) : visible;
+  const totalPages = Math.max(1, Math.ceil(visible.length / PER_PAGE));
+  // Clamped rather than stored: if a filter shrinks the list under the page
+  // we're on, fall back to the last real page instead of rendering nothing.
+  const current = Math.min(page, totalPages);
+
+  const pageItems = visible.slice((current - 1) * PER_PAGE, current * PER_PAGE);
+  // First post of the page is the big card, the rest fill the 2×2 grid. A page
+  // holding a single post gets the featured card and no empty grid slots.
+  const featured = pageItems[0] ?? null;
+  const grid = pageItems.slice(1);
+
+  /** Filtering from any control restarts the run at page 1. */
+  const filterBy = (name: string) => {
+    setActive(name);
+    setPage(1);
+  };
+
+  const goToPage = (n: number) => {
+    const next = Math.min(Math.max(n, 1), totalPages);
+    if (next === current) return;
+    setPage(next);
+
+    // Back to the featured card, or the new page starts mid-scroll. Lenis owns
+    // scrolling here; the anchor's scroll-mt clears the fixed navbar in both
+    // paths, so no JS offset (see scrollToBook).
+    const el = topRef.current;
+    if (!el) return;
+    const lenis = (window as unknown as { __lenis?: Lenis }).__lenis;
+    if (lenis) lenis.scrollTo(el, { duration: 1 });
+    else el.scrollIntoView({ behavior: "smooth" });
+  };
 
   const chip = (label: string) =>
     `rounded-full px-4 py-2 text-[11px] font-bold uppercase tracking-widest transition-all duration-300 ease-out ${
       active === label
+        ? "bg-taxi text-ink shadow-[0_8px_20px_-6px_rgba(11,11,11,0.35)]"
+        : "border border-ink/[0.08] bg-white text-ink-muted hover:-translate-y-0.5 hover:border-taxi/50 hover:text-ink"
+    }`;
+
+  // Shared by the numbers and the Prev/Next buttons so the row reads as one
+  // control. Disabled ends drop the lift and the pointer.
+  const pageBtn = (isActive: boolean) =>
+    `inline-flex h-10 min-w-[2.5rem] items-center justify-center rounded-full px-3.5 text-sm font-bold transition-all duration-300 ease-out disabled:pointer-events-none disabled:opacity-40 ${
+      isActive
         ? "bg-taxi text-ink shadow-[0_8px_20px_-6px_rgba(11,11,11,0.35)]"
         : "border border-ink/[0.08] bg-white text-ink-muted hover:-translate-y-0.5 hover:border-taxi/50 hover:text-ink"
     }`;
@@ -63,10 +117,11 @@ export default function BlogList() {
       {/* Filters sit in the white articles area, fully clear of PageHero.
           They used to be pulled up with -mt-6 into the header, whose
           overflow-hidden sliced off the top half of every chip. */}
-      <div className="wrap pb-2 pt-10">
+      {/* Anchor for the page-change scroll — scroll-mt clears the fixed navbar. */}
+      <div ref={topRef} className="wrap scroll-mt-28 pb-2 pt-10">
         <div className="flex flex-wrap gap-2.5">
           {filters.map((f) => (
-            <button key={f} onClick={() => setActive(f)} className={chip(f)}>
+            <button key={f} onClick={() => filterBy(f)} className={chip(f)}>
               {f}
             </button>
           ))}
@@ -75,13 +130,9 @@ export default function BlogList() {
 
       <section className="wrap grid gap-12 pb-16 pt-8 lg:grid-cols-[1fr_320px]">
         <div className="min-w-0">
-          <p className="mb-6 text-sm font-semibold text-ink-muted">
-            {visible.length} {visible.length === 1 ? "article" : "articles"}
-            {active !== ALL && ` in ${active}`}
-          </p>
-
           {featured && (
-            <Reveal>
+            // Remount per page/filter so the reveal replays for the new card.
+            <Reveal key={`featured-${active}-${term}-${current}`}>
               <Link
                 data-reveal
                 href={`/blog/${featured.slug}`}
@@ -129,8 +180,8 @@ export default function BlogList() {
 
           {grid.length > 0 ? (
             <Reveal
-              // Remount on filter change so the reveal replays for new cards.
-              key={active}
+              // Remount on filter/page change so the reveal replays for new cards.
+              key={`grid-${active}-${term}-${current}`}
               className={`grid gap-6 sm:grid-cols-2 ${featured ? "mt-8" : ""}`}
               stagger={0.08}
             >
@@ -181,11 +232,61 @@ export default function BlogList() {
                 <p className="mt-2 text-sm text-ink-muted">
                   Nothing published under {active} so far — try another category.
                 </p>
-                <button onClick={() => setActive(ALL)} className="btn-outline mt-6">
+                <button onClick={() => filterBy(ALL)} className="btn-outline mt-6">
                   Show all articles
                 </button>
               </div>
             )
+          )}
+
+          {/* Pagination — hidden when everything already fits on one page. */}
+          {totalPages > 1 && (
+            <nav
+              aria-label="Blog pagination"
+              className="mt-12 flex flex-wrap items-center justify-center gap-2 border-t border-ink/[0.08] pt-8"
+            >
+              <button
+                onClick={() => goToPage(current - 1)}
+                disabled={current === 1}
+                className={`${pageBtn(false)} gap-1.5`}
+                aria-label="Previous page"
+              >
+                <Arrow className="h-4 w-4 rotate-180" />
+                <span className="hidden sm:inline">Prev</span>
+              </button>
+
+              {pageNumbers(totalPages, current).map((n, i) =>
+                n === "gap" ? (
+                  <span
+                    key={`gap-${i}`}
+                    aria-hidden
+                    className="grid h-10 w-6 place-items-center text-sm font-bold text-ink-muted"
+                  >
+                    …
+                  </span>
+                ) : (
+                  <button
+                    key={n}
+                    onClick={() => goToPage(n)}
+                    className={pageBtn(n === current)}
+                    aria-current={n === current ? "page" : undefined}
+                    aria-label={`Page ${n}`}
+                  >
+                    {n}
+                  </button>
+                )
+              )}
+
+              <button
+                onClick={() => goToPage(current + 1)}
+                disabled={current === totalPages}
+                className={`${pageBtn(false)} gap-1.5`}
+                aria-label="Next page"
+              >
+                <span className="hidden sm:inline">Next</span>
+                <Arrow className="h-4 w-4" />
+              </button>
+            </nav>
           )}
         </div>
 
@@ -198,7 +299,10 @@ export default function BlogList() {
             <div className="mt-3 flex gap-2">
               <input
                 value={search}
-                onChange={(event) => setSearch(event.currentTarget.value)}
+                onChange={(event) => {
+                  setSearch(event.currentTarget.value);
+                  setPage(1);
+                }}
                 placeholder="Search…"
                 className="input !py-2.5"
               />
@@ -285,7 +389,7 @@ export default function BlogList() {
               {categories.map((c) => (
                 <li key={c.name}>
                   <button
-                    onClick={() => setActive(c.name)}
+                    onClick={() => filterBy(c.name)}
                     className={`flex w-full items-center justify-between rounded-lg px-2 py-2.5 text-sm font-semibold transition-colors ${
                       active === c.name ? "bg-taxi/15 text-ink" : "hover:bg-taxi/10"
                     }`}
