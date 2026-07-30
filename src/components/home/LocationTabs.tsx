@@ -19,27 +19,32 @@ const cities: Record<
   },
   Nainital: {
     blurb: "Beat the traffic to the Queen of Hills with drivers who know every mountain bend.",
-    image: img.mountains,
+    image:
+      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1785423958/ChatGPT_Image_Jul_30_2026_08_35_28_PM_zt5ixb.png",
     points: ["Experienced hill drivers", "Sightseeing packages", "Door-to-door service"],
   },
   Delhi: {
     blurb: "Reliable intercity rides in and out of the capital, day or night.",
-    image: img.cabNight,
+    image:
+      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1785424212/ChatGPT_Image_Jul_30_2026_08_39_58_PM_g1jrni.png",
     points: ["Airport transfers", "Corporate travel", "Round-trip fares"],
   },
   Haridwar: {
     blurb: "Comfortable pilgrimage journeys along the Ganga, planned around your rituals.",
-    image: img.temple,
+    image:
+      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1785424434/ChatGPT_Image_Jul_30_2026_08_43_42_PM_zvfq20.png",
     points: ["Early morning pickups", "Multi-day plans", "Patient drivers"],
   },
   Agra: {
     blurb: "The Taj in three hours flat via the Yamuna Expressway — clean, quick, calm.",
-    image: img.taj,
+    image:
+      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1785424703/ChatGPT_Image_Jul_30_2026_08_48_06_PM_hdgbl7.png",
     points: ["Same-day return", "Monument tours", "Flexible timings"],
   },
   Lucknow: {
     blurb: "City rides and outstation trips across the Nawabi capital and beyond.",
-    image: img.driver,
+    image:
+      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1785424971/ChatGPT_Image_Jul_30_2026_08_52_04_PM_qfw8vi.png",
     points: ["Wedding cabs", "Business travel", "Local sightseeing"],
   },
 };

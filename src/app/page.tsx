@@ -1,4 +1,5 @@
 import Hero from "@/components/home/Hero";
+import DriveStrip from "@/components/home/DriveStrip";
 import BookBottom from "@/components/home/BookBottom";
 import PremiumCabsPreview from "@/components/home/PremiumCabsPreview";
 import About from "@/components/home/About";
@@ -16,6 +17,7 @@ export default function HomePage() {
       {/* Scrolls to #book when arriving from another page's booking CTA. */}
       <BookHashScroll />
       <Hero />
+      <DriveStrip />
       <BookBottom />
       <PremiumCabsPreview />
       <About />
