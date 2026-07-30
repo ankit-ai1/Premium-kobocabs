@@ -9,6 +9,7 @@ import { getRoute, type Place, type RouteResult } from "@/lib/geo";
 import { quoteFares } from "@/lib/fare";
 import { whatsappBookingLink } from "@/lib/whatsapp";
 import { Arrow, Pin, Route, Calendar, Clock, Users, Chat } from "@/components/Icons";
+import BookLink from "@/components/BookLink";
 
 // Leaflet touches `window`, so the map can only load in the browser.
 const QuoteMap = dynamic(() => import("@/components/QuoteMap"), {
@@ -84,9 +85,9 @@ export default function QuoteView() {
         <p className="mx-auto mt-4 max-w-md text-ink-muted">
           Start from the booking form so we can work out your distance and fare.
         </p>
-        <Link href="/#book" className="btn-taxi mt-8">
+        <BookLink className="btn-taxi mt-8">
           Book A Ride <Arrow className="h-4 w-4" />
-        </Link>
+        </BookLink>
       </section>
     );
   }

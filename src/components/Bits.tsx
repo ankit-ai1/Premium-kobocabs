@@ -1,4 +1,45 @@
-import type { ReactNode } from "react";
+import type { ElementType, ReactNode } from "react";
+
+/**
+ * The site's signature headline: Anton display type in ink, with a trailing
+ * segment in yellow — the same treatment as the hero and every SectionHead.
+ *
+ * `hi` names the exact substring to highlight (set per post in site.ts so the
+ * split always reads well). Without it, the last two words are highlighted.
+ */
+export function DisplayHeading({
+  text,
+  hi,
+  as: Tag = "h2",
+  className = "",
+}: {
+  text: string;
+  hi?: string;
+  as?: ElementType;
+  className?: string;
+}) {
+  let head = text;
+  let tail = "";
+
+  const idx = hi ? text.lastIndexOf(hi) : -1;
+  if (idx > -1) {
+    head = text.slice(0, idx);
+    tail = text.slice(idx);
+  } else {
+    const words = text.trim().split(/\s+/);
+    const n = Math.min(2, Math.max(1, words.length - 1));
+    head = words.slice(0, words.length - n).join(" ");
+    if (head) head += " ";
+    tail = words.slice(words.length - n).join(" ");
+  }
+
+  return (
+    <Tag className={`display ${className}`}>
+      {head}
+      <span className="hi">{tail}</span>
+    </Tag>
+  );
+}
 
 /** Small eyebrow + big display heading with a highlighted tail word. */
 export function SectionHead({

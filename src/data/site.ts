@@ -295,6 +295,99 @@ export type Post = {
   read: string;
   image: string;
   featured?: boolean;
+  /** Substring of the title to render in the yellow .hi style. */
+  titleHi?: string;
+  /** Article body: section headings and paragraphs, in order. */
+  content: PostBlock[];
+};
+
+/** One block of article body — a display heading or a paragraph. */
+export type PostBlock = { h2: string } | { p: string };
+
+// Article bodies, keyed by slug, so the post list above stays readable.
+// A block is either a section heading or a paragraph — headings render in the
+// site's Anton display style, paragraphs stay in readable Inter.
+const postContent: Record<string, PostBlock[]> = {
+  "bareilly-to-nainital-guide-2025": [
+    { p: "Nainital sits about 140 km north of Bareilly, and on a clear morning the drive takes roughly three and a half hours. The road runs through Kichha and Haldwani before it starts to climb at Kathgodam, where the plains end and the Kumaon hills begin. Most of the journey is easy highway driving; the last 35 km is a steady ascent with tight bends that rewards an unhurried pace." },
+    { h2: "The best months to travel" },
+    { p: "March to June is the main window, when the plains are already uncomfortable and the lake district stays in the low twenties. September to November is the quieter alternative — the monsoon has cleared the air and the Himalayan peaks are visible from Snow View Point. July and August bring heavy rain and occasional landslides on the Kathgodam stretch; travel then only with a driver who knows the diversions." },
+    { h2: "Planning the day" },
+    { p: "Leave Bareilly by 6 AM if you want a full day. That gets you to Bhimtal for breakfast around 9, into Nainital before the day-tripper traffic builds, and leaves the afternoon free for a boat ride on the lake and the ropeway up to Snow View." },
+    { p: "Parking inside Mall Road is limited and often closed to outside vehicles in peak season, which is one practical reason a cab with a local driver saves an hour of circling. Worth stopping for on the way: the Kumaon gate at Haldwani for local produce, Bhimtal for a quieter lake than Naini itself, and Naukuchiatal if you have an extra hour." },
+    { h2: "Choosing your cab" },
+    { p: "For a group of four, a sedan handles the route comfortably. Six or more, or a trip continuing to Mukteshwar or Ranikhet, is better served by an SUV — the extra ground clearance matters on the narrower hill roads beyond Nainital. On the return leg, most travellers prefer to start down by 4 PM; the descent after dark is manageable but slow." },
+  ],
+  "char-dham-yatra-2025": [
+    { p: "The Char Dham circuit links four shrines in Uttarakhand — Yamunotri, Gangotri, Kedarnath and Badrinath — and is traditionally travelled west to east in that order. The full loop from Haridwar runs about 1,600 km and takes ten to twelve days at a sensible pace. Compressing it into under a week is possible but leaves no margin for weather, and the mountain roads punish a tight schedule." },
+    { h2: "When the portals open" },
+    { p: "The temples open in late April or early May, depending on the Hindu calendar, and close around Diwali. May, June, September and October are the practical windows. The monsoon months of July and August see frequent landslides on the Rishikesh–Rudraprayag corridor, and while the roads usually reopen within hours, a single slip can cost a day." },
+    { h2: "The stretches you walk" },
+    { p: "Two shrines need walking. Yamunotri is a 6 km climb from Janki Chatti, and Kedarnath is 16 km from Gaurikund — ponies and palanquins are available at both, and helicopter services run to Kedarnath from Phata and Sersi in season. Gangotri and Badrinath are reachable by road right up to the temple." },
+    { h2: "Respecting the altitude" },
+    { p: "Altitude is the part most first-time travellers underestimate. Badrinath sits above 3,100 m and Kedarnath above 3,500 m. Build in a night at a lower elevation before each, drink more water than feels necessary, and treat a persistent headache as a reason to descend rather than push on." },
+    { p: "A Tempo Traveller suits groups of nine or more and gives space for the luggage a ten-day trip requires. Smaller families are usually more comfortable in an SUV, which handles the hairpins above Rudraprayag with less effort. In either case, a driver who has done the circuit before is worth more than the vehicle." },
+  ],
+  "delhi-to-agra-by-cab": [
+    { p: "The Yamuna Expressway turned Delhi–Agra into a three-hour drive. The 165 km road is a controlled-access motorway with a 100 km/h limit for cars, and the toll for a one-way private car trip runs a few hundred rupees. Leaving Delhi before 7 AM avoids the Noida bottleneck and puts you at the Taj Mahal for the light most photographers prefer." },
+    { h2: "The one rule that catches people out" },
+    { p: "The Taj is closed on Fridays. That single fact derails more Agra day trips than traffic ever does. It opens from sunrise to sunset otherwise, and the ticket also gives a small discount on same-day entry to Agra Fort. Buy online in advance during the winter season, when the queue at the west gate can run to an hour." },
+    { h2: "What else is worth your time" },
+    { p: "Agra Fort deserves the two hours most itineraries do not give it. So does Itmad-ud-Daulah — the smaller tomb across the river often called the Baby Taj, which sees a fraction of the crowds. If you have a full day, Fatehpur Sikri sits 40 km further west and pairs naturally with the return leg." },
+    { p: "For a view of the Taj without the queue, Mehtab Bagh on the opposite bank is at its best in the last hour before sunset. It is a ten-minute drive from the main complex and a good way to close the day before starting back." },
+    { h2: "One-way or return?" },
+    { p: "Most people do this as a day trip and are back in Delhi by 9 PM. A one-way drop makes sense only if you are continuing to Jaipur; for a return the same day, a round-trip booking works out cheaper. If you would rather not rush, an overnight stay lets you see the monument at sunrise, which is genuinely different from the mid-morning experience." },
+  ],
+  "best-hill-stations-near-delhi": [
+    { p: "When the plains cross 40°C, the nearest real relief is a few hours north. These five hill stations are all within about 350 km of Delhi, which means a comfortable morning drive rather than an overnight journey." },
+    { h2: "The easy two: Mussoorie and Nainital" },
+    { p: "Mussoorie, 280 km out, is the most accessible. The drive via Dehradun is almost entirely four-lane, and at 2,000 m the town stays fifteen degrees cooler than Delhi. It is also the busiest — go midweek if you can. Nainital, at 300 km, trades some of that convenience for a lake and a quieter Mall Road, though it fills up on long weekends." },
+    { h2: "For a longer drive: Shimla and Kasauli" },
+    { p: "Shimla is 350 km and the longest of the five, but the Kalka stretch is scenic enough to justify it, and the Ridge is still one of the better places in North India to do nothing at all. Kasauli, an hour short of Shimla, is the alternative for anyone who wants pine forest without crowds — a cantonment town, small, and deliberately undeveloped." },
+    { h2: "The quiet one: Lansdowne" },
+    { p: "Lansdowne is the least known of the group and the shortest drive at 250 km. Because there is very little to do beyond walking, it tends to attract people who actually want rest rather than sightseeing." },
+    { p: "Any of these works as a two-night trip. Leave Friday evening or early Saturday, and start back by mid-afternoon Sunday to stay ahead of the returning weekend traffic. A sedan is fine for Mussoorie and Nainital; for Shimla and Lansdowne the climbs are steeper and an SUV is the more comfortable choice." },
+  ],
+  "haridwar-rishikesh-by-cab": [
+    { p: "Haridwar and Rishikesh sit 24 km apart on the Ganga, and while they are usually mentioned together, they are quite different places. Haridwar is the older pilgrimage city — dense, ceremonial, organised around the river. Rishikesh is quieter upstream, with ashrams, footbridges and, increasingly, rafting operators." },
+    { h2: "The evening aarti" },
+    { p: "The Ganga Aarti at Har Ki Pauri is the reason most people come to Haridwar, and it happens every evening around sunset. Arrive at least forty minutes early; the ghat fills quickly and the better vantage points go first. The ceremony lasts about half an hour and the crowd disperses slowly afterwards, so plan for a slow walk back to the vehicle." },
+    { h2: "What to see in Rishikesh" },
+    { p: "Triveni Ghat holds its own aarti in a calmer setting. Lakshman Jhula and Ram Jhula are the two suspension bridges worth crossing on foot, and the Beatles Ashram — properly the Maharishi Mahesh Yogi ashram — is now open to visitors and makes an unhurried hour." },
+    { h2: "Timing your trip" },
+    { p: "March and April are the most comfortable months, with September and October a close second once the monsoon has passed. Avoid the Kanwar Yatra period in Shravan, usually July or August, unless you are part of it — the highways around Haridwar are effectively closed to ordinary traffic for the duration." },
+    { p: "From Delhi the drive is about 230 km and five hours; from Bareilly, roughly 300 km. Both cities are compact enough to see in two days, and the road between them is short enough that staying in one and visiting the other costs nothing in time." },
+  ],
+  "one-way-vs-round-trip": [
+    { p: "The choice between a one-way drop and a round trip is mostly a question of whether the cab waits for you. On a one-way booking you pay for the distance you travel, and the operator takes on the risk of finding a return passenger. On a round trip you are paying for the vehicle and driver for the whole duration, including the time it sits parked." },
+    { h2: "The two-day rule of thumb" },
+    { p: "If you are coming back within two days, a round trip is almost always cheaper. Beyond that, the waiting cost outweighs the return fare, and two one-way bookings usually win. Bareilly to Nainital and back over a weekend is a round trip. Bareilly to Delhi for a week is two one-ways." },
+    { h2: "Where one-way pricing wins" },
+    { p: "One-way rates have a quiet advantage on popular corridors. Delhi–Agra, Delhi–Jaipur and Bareilly–Delhi carry enough traffic in both directions that operators can fill the return leg, which is why one-way fares on those routes are often close to half a round trip rather than the two-thirds you might expect elsewhere." },
+    { h2: "When a round trip earns its cost" },
+    { p: "Multi-stop travel is where paying for the wait makes sense. A hill itinerary taking in Nainital, Bhimtal and Mukteshwar over three days involves a lot of short hops and waiting, and rebooking a fresh cab at each stop is both more expensive and considerably more trouble." },
+    { p: "One thing to confirm before booking either way: whether driver allowance, tolls and state entry permits are included. A quoted fare that excludes them can end up 15 to 20 percent higher than it first appears." },
+  ],
+  "mussoorie-travel-guide-2025": [
+    { p: "Mussoorie sits at just over 2,000 m on a ridge above the Doon Valley, about 35 km beyond Dehradun. The approach climbs steadily for the last hour, and the first view of the valley opening out below is the reason people keep making the trip." },
+    { h2: "Picking your season" },
+    { p: "April to June is the main season, when the town is busy and the weather is at its best. September to November is the better choice for anyone who prefers space — the monsoon has cleared, the Himalayan skyline is sharp, and the hotels are cheaper. December and January bring occasional snow, which is popular but makes the upper roads slow." },
+    { h2: "The walks worth doing" },
+    { p: "Camel's Back Road is a three-kilometre walk with no traffic and the best sunset view in town. Gun Hill, reached by ropeway from Mall Road, gives the wider panorama on a clear day. Kempty Falls is the standard stop 15 km out and is usually crowded; Bhatta Falls nearby is smaller and considerably calmer." },
+    { h2: "The part most visitors miss" },
+    { p: "Landour, a short climb above Mussoorie, is a cantonment area with colonial-era buildings, a handful of good cafés at Char Dukan, and almost no traffic. If you have a spare morning, spend it there rather than on Mall Road." },
+    { p: "From Delhi the drive is roughly 280 km and six hours; from Bareilly, about 380 km. Vehicles are restricted on parts of Mall Road during peak hours, so a driver who knows the parking arrangements will save you a lot of walking with luggage." },
+  ],
+  "jim-corbett-cab-guide": [
+    { p: "Jim Corbett is India's oldest national park and the birthplace of Project Tiger, and it sits about 160 km from Bareilly — close enough for a weekend, far enough that the drive deserves an early start. The route runs through Kashipur and Ramnagar, and takes roughly four hours." },
+    { h2: "Which zone can you enter?" },
+    { p: "The park is divided into zones, and which one you can enter depends on the season and on how far ahead you book. Dhikala is the best known and requires an overnight stay inside the park; Bijrani and Jhirna are the usual day-safari zones. Jhirna and Dhela stay open through the year, while Dhikala and Bijrani close during the monsoon, roughly mid-June to mid-November." },
+    { h2: "Booking the safari" },
+    { p: "Safari permits are limited and released online in advance. In the winter season they routinely sell out weeks ahead, so book the permit before the accommodation. Morning safaris start around sunrise and afternoon slots run until dusk; the morning drive is generally better for sightings." },
+    { h2: "When to visit" },
+    { p: "November to February is the most comfortable period for weather. March to June is hotter but gives better odds of a tiger sighting, since the animals concentrate around the remaining water. Even then, treat a sighting as a bonus — the birdlife, the sal forest and the Ramganga riverbed make the trip worthwhile regardless." },
+    { p: "Most lodges sit around Ramnagar and Dhikuli, within twenty minutes of the entry gates. An SUV is the sensible booking for this route: the last stretch to some of the resorts is unpaved, and the extra clearance matters after rain." },
+  ],
 };
 
 export const posts: Post[] = [
@@ -308,6 +401,8 @@ export const posts: Post[] = [
     read: "5 min read",
     image: img.mountains,
     featured: true,
+    titleHi: "Travel Guide 2025",
+    content: postContent["bareilly-to-nainital-guide-2025"],
   },
   {
     slug: "char-dham-yatra-2025",
@@ -318,6 +413,8 @@ export const posts: Post[] = [
     date: "March 28, 2025",
     read: "7 min",
     image: img.hills,
+    titleHi: "from North India",
+    content: postContent["char-dham-yatra-2025"],
   },
   {
     slug: "delhi-to-agra-by-cab",
@@ -328,6 +425,8 @@ export const posts: Post[] = [
     date: "March 10, 2025",
     read: "4 min",
     image: img.taj,
+    titleHi: "Along the Way",
+    content: postContent["delhi-to-agra-by-cab"],
   },
   {
     slug: "best-hill-stations-near-delhi",
@@ -338,6 +437,8 @@ export const posts: Post[] = [
     date: "February 20, 2025",
     read: "5 min",
     image: img.nainital,
+    titleHi: "Cab Getaway",
+    content: postContent["best-hill-stations-near-delhi"],
   },
   {
     slug: "haridwar-rishikesh-by-cab",
@@ -348,6 +449,8 @@ export const posts: Post[] = [
     date: "February 5, 2025",
     read: "5 min",
     image: img.temple,
+    titleHi: "from North India",
+    content: postContent["haridwar-rishikesh-by-cab"],
   },
   {
     slug: "one-way-vs-round-trip",
@@ -358,6 +461,8 @@ export const posts: Post[] = [
     date: "January 22, 2025",
     read: "4 min",
     image: img.wheel,
+    titleHi: "for Your Budget?",
+    content: postContent["one-way-vs-round-trip"],
   },
   {
     slug: "mussoorie-travel-guide-2025",
@@ -368,6 +473,8 @@ export const posts: Post[] = [
     date: "January 8, 2025",
     read: "6 min",
     image: img.hills,
+    titleHi: "There by Cab",
+    content: postContent["mussoorie-travel-guide-2025"],
   },
   {
     slug: "jim-corbett-cab-guide",
@@ -378,6 +485,8 @@ export const posts: Post[] = [
     date: "December 15, 2024",
     read: "5 min",
     image: img.wildlife,
+    titleHi: "from Bareilly",
+    content: postContent["jim-corbett-cab-guide"],
   },
 ];
 

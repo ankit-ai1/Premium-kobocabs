@@ -5,7 +5,10 @@ import Reveal from "@/components/Reveal";
 export default function BookBottom() {
   // Only a bottom divider — the dark hero above is its own separation.
   return (
-    <section className="border-b border-ink/[0.08] bg-paper py-24" id="book">
+    <section
+      id="book"
+      className="scroll-mt-28 border-b border-ink/[0.08] bg-paper py-24"
+    >
       <div className="wrap">
         <SectionHead
           center

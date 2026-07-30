@@ -5,8 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { gsap } from "@/lib/gsap";
 import { img, site } from "@/data/site";
-import { Arrow, Star, Phone } from "@/components/Icons";
+import { Arrow, Phone } from "@/components/Icons";
 import { useMagnetic } from "@/hooks/useGsap";
+import { scrollToBook } from "@/components/BookLink";
 
 export default function Hero() {
   const root = useRef<HTMLDivElement>(null);
@@ -108,18 +109,9 @@ export default function Hero() {
           on landing. svh (smallest viewport) keeps it fully in frame on mobile
           where browser chrome eats into 100vh; vh stays as the fallback. */}
       <div className="h-content wrap relative z-10 flex min-h-[calc(100vh-70px)] flex-col justify-center py-16 supports-[height:100svh]:min-h-[calc(100svh-70px)]">
-        <div className="h-eyebrow inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-white backdrop-blur">
-          <span className="flex gap-0.5 text-taxi">
-            {[...Array(5)].map((_, i) => (
-              <Star key={i} className="h-3 w-3" />
-            ))}
-          </span>
-          {site.stats.rating} · {site.stats.rides} happy riders
-        </div>
-
         {/* Each line gets its own mask so .h-line can slide up from beneath it.
             The small pad keeps the yellow text-shadow from being clipped. */}
-        <h1 className="display t-hero mt-7 max-w-5xl text-white">
+        <h1 className="display t-hero max-w-5xl text-white">
           <span className="block overflow-hidden pb-[0.06em]">
             <span className="h-line block">Your Journey,</span>
           </span>
@@ -136,9 +128,19 @@ export default function Hero() {
         </p>
 
         <div className="mt-8 flex flex-wrap items-center gap-4">
-          <Link ref={magnet} href="/#book" className="h-cta btn-taxi !rounded-full">
+          {/* Kept as a plain anchor so the magnetic ref stays attached; the
+              SmoothScroll click handler routes it through Lenis. */}
+          <a
+            ref={magnet}
+            href="/#book"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToBook();
+            }}
+            className="h-cta btn-taxi !rounded-full"
+          >
             Book Your Ride <Arrow className="h-4 w-4" />
-          </Link>
+          </a>
           <a
             href={`tel:${site.phoneRaw}`}
             className="h-cta inline-flex items-center gap-3 text-white"

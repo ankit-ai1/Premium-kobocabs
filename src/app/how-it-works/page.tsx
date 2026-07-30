@@ -5,6 +5,7 @@ import { steps, promises, img, site } from "@/data/site";
 import { PageHero, SectionHead } from "@/components/Bits";
 import { Arrow, Check } from "@/components/Icons";
 import Reveal from "@/components/Reveal";
+import BookLink from "@/components/BookLink";
 
 export const metadata: Metadata = {
   title: `How It Works — ${site.name}`,
@@ -137,9 +138,9 @@ export default function HowItWorksPage() {
         <p className="mx-auto mt-4 max-w-xl text-ink-muted">
           Book in under a minute — no advance, free cancellation up to 6 hours before pickup.
         </p>
-        <Link href="/contact" className="btn-ink mt-8">
+        <BookLink className="btn-ink mt-8">
           Book Your Cab <Arrow className="h-4 w-4" />
-        </Link>
+        </BookLink>
       </section>
     </>
   );

@@ -6,6 +6,7 @@ import { Arrow, Chat } from "@/components/Icons";
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
 import { useReveal } from "@/hooks/useGsap";
+import BookLink from "@/components/BookLink";
 
 export default function CtaBand() {
   const ref = useReveal<HTMLDivElement>("[data-reveal]", { stagger: 0.09, y: 34 });
@@ -60,9 +61,9 @@ export default function CtaBand() {
           </p>
 
           <div data-reveal className="relative mt-9 flex flex-wrap justify-center gap-4">
-            <Link href="/contact" className="btn-taxi">
+            <BookLink className="btn-taxi">
               Book Your Cab Now <Arrow className="h-4 w-4" />
-            </Link>
+            </BookLink>
             <a href={site.whatsapp} target="_blank" rel="noreferrer" className="btn inline-flex border border-white/30 text-white hover:bg-white hover:text-ink">
               <Chat className="h-4 w-4" /> WhatsApp Us
             </a>

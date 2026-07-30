@@ -7,6 +7,8 @@ import { Users, Arrow, Check, Chat } from "@/components/Icons";
 import FareEstimator from "@/components/FareEstimator";
 import Faq from "@/components/Faq";
 import Reveal from "@/components/Reveal";
+import BookLink from "@/components/BookLink";
+import CabBookLink from "@/components/CabBookLink";
 
 export const metadata: Metadata = {
   title: `Premium Cabs — ${site.name}`,
@@ -124,9 +126,9 @@ export default function PremiumCabsPage() {
                     ))}
                   </div>
 
-                  <Link href="/contact" className="btn-ink mt-7 self-start">
+                  <CabBookLink cab={c.name} className="btn-ink mt-7 self-start">
                     Book {c.name} <Arrow className="h-4 w-4" />
-                  </Link>
+                  </CabBookLink>
                 </div>
               </article>
             ))}
@@ -189,9 +191,9 @@ export default function PremiumCabsPage() {
             vehicle and give you a precise quote instantly.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link href="/contact" className="btn-taxi">
+            <BookLink className="btn-taxi">
               Book Your Cab Now <Arrow className="h-4 w-4" />
-            </Link>
+            </BookLink>
             <a href={site.whatsapp} target="_blank" rel="noreferrer" className="btn-outline">
               <Chat className="h-4 w-4" /> WhatsApp Us
             </a>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { img, site } from "@/data/site";
 import { Phone, Arrow } from "@/components/Icons";
 import { useReveal, useParallax } from "@/hooks/useGsap";
+import BookLink from "@/components/BookLink";
 
 export default function CallToBook() {
   const ref = useReveal<HTMLDivElement>("[data-reveal]", { stagger: 0.12, y: 44 });
@@ -58,9 +59,9 @@ export default function CallToBook() {
           </p>
 
           <div data-reveal className="mt-8 flex flex-wrap gap-4">
-            <Link href="/contact" className="btn-taxi !rounded-full">
+            <BookLink className="btn-taxi !rounded-full">
               Book Online <Arrow className="h-4 w-4" />
-            </Link>
+            </BookLink>
             <a href={site.whatsapp} target="_blank" rel="noreferrer" className="btn !rounded-full border-2 border-white text-white hover:bg-white hover:text-ink">
               WhatsApp Us
             </a>

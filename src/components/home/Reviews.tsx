@@ -9,7 +9,7 @@ export default function Reviews() {
   const ref = useReveal<HTMLDivElement>("[data-reveal]", { stagger: 0.1, y: 50, scale: 0.97 });
 
   return (
-    <section id="reviews" className="wrap py-20">
+    <section id="reviews" className="wrap scroll-mt-28 py-20">
       <SectionHead
         eyebrow="Rider Stories"
         title="What Our Riders"

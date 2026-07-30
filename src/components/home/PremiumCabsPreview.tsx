@@ -6,12 +6,13 @@ import { premiumCabs } from "@/data/site";
 import { SectionHead } from "@/components/Bits";
 import { Users, Arrow } from "@/components/Icons";
 import { useReveal } from "@/hooks/useGsap";
+import CabBookLink from "@/components/CabBookLink";
 
 export default function PremiumCabsPreview() {
   const ref = useReveal<HTMLDivElement>("[data-reveal]", { stagger: 0.08, y: 50, scale: 0.96 });
 
   return (
-    <section className="wrap py-20" id="premiumCabs">
+    <section id="premium-cabs" className="wrap scroll-mt-28 py-20">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <SectionHead
           eyebrow="Our Premium Cabs"
@@ -63,9 +64,9 @@ export default function PremiumCabsPreview() {
               </div>
 
               <div className="mt-auto pt-5">
-                <Link href="/contact" className="btn-ink w-full !py-3.5 text-xs">
+                <CabBookLink cab={c.name} className="btn-ink w-full !py-3.5 text-xs">
                   Book {c.name} <Arrow className="h-3.5 w-3.5" />
-                </Link>
+                </CabBookLink>
               </div>
             </div>
           </article>

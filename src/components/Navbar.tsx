@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { nav } from "@/data/site";
+import BookLink from "@/components/BookLink";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -62,9 +63,9 @@ export default function Navbar() {
           </ul>
 
           <div className="flex items-center gap-3">
-            <Link href="/#book" className="btn-taxi hidden !rounded-full sm:inline-flex">
+            <BookLink className="btn-taxi hidden !rounded-full sm:inline-flex">
               Book A Cab
-            </Link>
+            </BookLink>
 
             <button
               aria-label="Toggle menu"
@@ -95,9 +96,9 @@ export default function Navbar() {
             </li>
           ))}
           <li className="pt-2">
-            <Link href="/#book" className="btn-taxi w-full !rounded-full">
+            <BookLink className="btn-taxi w-full !rounded-full">
               Book A Cab
-            </Link>
+            </BookLink>
           </li>
         </ul>
       </div>

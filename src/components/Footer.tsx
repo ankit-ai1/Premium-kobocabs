@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { site, routeGroups } from "@/data/site";
 import { Phone, Mail, Pin, Clock, Chat, Instagram, Twitter, Facebook } from "./Icons";
+import RouteBookLink from "./RouteBookLink";
 
 const services = [
   "Outstation Cabs",
@@ -92,9 +93,12 @@ export default function Footer() {
           <ul className="mt-3 space-y-0 text-sm text-white/70">
             {popular.map((p) => (
               <li key={p}>
-                <Link href="/routes" className="block py-2.5 transition-colors hover:text-taxi">
+                <RouteBookLink
+                  route={p}
+                  className="block py-2.5 transition-colors hover:text-taxi"
+                >
                   {p} Cabs
-                </Link>
+                </RouteBookLink>
               </li>
             ))}
             <li className="pt-1">

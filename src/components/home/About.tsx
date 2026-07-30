@@ -49,7 +49,7 @@ export default function About() {
   }, []);
 
   return (
-    <section ref={imgScope} className="wrap py-24" id="about">
+    <section ref={imgScope} className="wrap scroll-mt-28 py-24" id="about">
       <div ref={ref} className="grid items-center gap-14 lg:grid-cols-2">
         {/* image with offset yellow frame */}
         <div data-reveal className="relative">

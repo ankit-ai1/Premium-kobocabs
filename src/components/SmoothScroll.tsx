@@ -22,6 +22,10 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       smoothWheel: true,
     });
 
+    // Exposed so BookLink (and any other helper) can drive the same instance
+    // instead of fighting it with native scrolling.
+    (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
+
     lenis.on("scroll", ScrollTrigger.update);
     const raf = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(raf);
@@ -48,8 +52,10 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       // We fully own this navigation, so stop it reaching the router too.
       e.preventDefault();
       e.stopPropagation();
+      // No offset: Lenis respects the target's scroll-margin-top, and every
+      // anchor target carries `scroll-mt-28`. Passing an offset too would
+      // double-count and stop short of the section.
       lenis.scrollTo(target as HTMLElement, {
-        offset: -80,
         onComplete: () => window.history.replaceState(null, "", hash),
       });
     };
@@ -59,6 +65,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       document.removeEventListener("click", onClick, true);
       gsap.ticker.remove(raf);
       gsap.ticker.lagSmoothing(500, 33);
+      delete (window as unknown as { __lenis?: Lenis }).__lenis;
       lenis.destroy();
     };
   }, []);

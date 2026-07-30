@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { routeGroups, site } from "@/data/site";
 import { PageHero } from "@/components/Bits";
 import { Arrow, Chat } from "@/components/Icons";
 import Reveal from "@/components/Reveal";
+import BookLink from "@/components/BookLink";
+import RouteBookLink from "@/components/RouteBookLink";
 
 export const metadata: Metadata = {
   title: `Routes — ${site.name}`,
@@ -42,15 +43,15 @@ export default function RoutesPage() {
 
               <div className="mt-7 flex flex-wrap gap-3">
                 {g.routes.map((r) => (
-                  <Link
+                  <RouteBookLink
                     key={r}
-                    href="/contact"
+                    route={r}
                     className="group inline-flex items-center gap-2 rounded-full border border-ink/[0.08] bg-white px-5 py-2.5 text-sm font-semibold text-ink transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-taxi/50 hover:bg-taxi/10"
                     style={{ boxShadow: "var(--shadow-card)" }}
                   >
                     {r} Cabs
                     <Arrow className="h-3.5 w-3.5 -translate-x-1 text-ink-muted opacity-0 transition-all duration-300 ease-out group-hover:translate-x-0 group-hover:text-ink group-hover:opacity-100" />
-                  </Link>
+                  </RouteBookLink>
                 ))}
               </div>
             </div>
@@ -79,9 +80,9 @@ export default function RoutesPage() {
               across North India with the same fixed, all-inclusive pricing.
             </p>
             <div className="relative mt-8 flex flex-wrap justify-center gap-4">
-              <Link href="/contact" className="btn-taxi">
+              <BookLink className="btn-taxi">
                 Book Any Route <Arrow className="h-4 w-4" />
-              </Link>
+              </BookLink>
               <a href={site.whatsapp} target="_blank" rel="noreferrer" className="btn-outline">
                 <Chat className="h-4 w-4" /> WhatsApp Us
               </a>

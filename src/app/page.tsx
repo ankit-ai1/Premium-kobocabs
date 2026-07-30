@@ -8,10 +8,13 @@ import Stats from "@/components/home/Stats";
 import CallToBook from "@/components/home/CallToBook";
 import Reviews from "@/components/home/Reviews";
 import CtaBand from "@/components/home/CtaBand";
+import { BookHashScroll } from "@/components/BookLink";
 
 export default function HomePage() {
   return (
     <>
+      {/* Scrolls to #book when arriving from another page's booking CTA. */}
+      <BookHashScroll />
       <Hero />
       <BookBottom />
       <PremiumCabsPreview />
