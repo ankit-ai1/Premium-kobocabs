@@ -80,8 +80,10 @@ export default function Hero() {
 
   return (
     <section ref={root} className="relative overflow-hidden bg-ink">
-      {/* Background image — oversized so the parallax drift never shows an edge */}
-      <div className="absolute inset-0 overflow-hidden bg-ink">
+      {/* Background image — oversized so the parallax drift never shows an edge.
+          The whole stack is decorative, so it must never take a click: it spans
+          the full hero and would otherwise sit over anything not raised above it. */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden bg-ink">
         <div className="h-bg-layer absolute -inset-y-[10%] inset-x-0">
           <Image
             src={img.mountains}

@@ -33,7 +33,7 @@ export default function DriveStrip() {
             "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
         }}
       >
-        <div className="marquee-track animate-marquee">
+        <div className="marquee-track marquee-hoverable animate-marquee">
           {row.map((city, index) => (
             <span
               key={`${city}-${index}`}

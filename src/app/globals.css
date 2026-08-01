@@ -213,6 +213,14 @@ body {
   width: max-content;
 }
 
+/* Parks the strip while the pointer is resting on one of its chips, so a
+   destination can be read instead of sliding away, and picks straight back up
+   the moment the pointer leaves. `:has()` scopes this to the chips themselves —
+   hovering the gap between two of them doesn't stop the strip. */
+.marquee-hoverable:has(> *:hover) {
+  animation-play-state: paused;
+}
+
 /* hide content until GSAP fires (avoids flash), but keep visible if no JS */
 .no-js [data-reveal] {
   opacity: 1 !important;

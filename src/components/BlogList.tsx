@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { blogCategories as categories, posts, site } from "@/data/site";
 import { Arrow, Clock, Search } from "@/components/Icons";
-import Reveal from "@/components/Reveal";
 import { DisplayHeading } from "@/components/Bits";
 import BookLink from "@/components/BookLink";
 
@@ -131,64 +130,54 @@ export default function BlogList() {
       <section className="wrap grid gap-12 pb-16 pt-8 lg:grid-cols-[1fr_320px]">
         <div className="min-w-0">
           {featured && (
-            // Remount per page/filter so the reveal replays for the new card.
-            <Reveal key={`featured-${active}-${term}-${current}`}>
-              <Link
-                data-reveal
-                href={`/blog/${featured.slug}`}
-                className="card card-hover group block overflow-hidden"
-              >
-                <div className="relative aspect-[21/9] overflow-hidden bg-ink/5">
-                  <Image
-                    src={featured.image}
-                    alt={featured.title}
-                    fill
-                    sizes="(max-width:1024px) 100vw, 60vw"
-                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink/50 to-transparent" />
-                  <span className="absolute left-4 top-4 rounded-full bg-taxi px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-widest text-ink shadow-[0_6px_16px_-4px_rgba(11,11,11,0.4)]">
-                    {featured.category}
+            <Link
+              href={`/blog/${featured.slug}`}
+              className="card card-hover group block overflow-hidden"
+            >
+              <div className="relative aspect-[21/9] overflow-hidden bg-ink/5">
+                <Image
+                  src={featured.image}
+                  alt={featured.title}
+                  fill
+                  sizes="(max-width:1024px) 100vw, 60vw"
+                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+                />
+                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink/50 to-transparent" />
+                <span className="absolute left-4 top-4 rounded-full bg-taxi px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-widest text-ink shadow-[0_6px_16px_-4px_rgba(11,11,11,0.4)]">
+                  {featured.category}
+                </span>
+              </div>
+              <div className="p-7">
+                <div className="text-[11px] font-bold uppercase tracking-widest text-ink-muted">
+                  {featured.date}
+                </div>
+                <DisplayHeading
+                  text={featured.title}
+                  hi={featured.titleHi}
+                  className="mt-2 text-[clamp(1.5rem,2.6vw,2.15rem)]"
+                />
+                {/* Short yellow rule tying the card back to the brand */}
+                <span className="mt-3 block h-1 w-14 rounded-full bg-taxi" />
+                <p className="mt-3 leading-relaxed text-ink-muted">
+                  {featured.excerpt}
+                </p>
+                <div className="mt-5 flex items-center justify-between border-t border-ink/[0.08] pt-4">
+                  <span className="flex items-center gap-1.5 text-xs font-semibold text-ink-muted">
+                    <Clock className="h-4 w-4" /> {featured.read}
+                  </span>
+                  <span className="nudge flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-ink">
+                    Read More <Arrow className="h-4 w-4" />
                   </span>
                 </div>
-                <div className="p-7">
-                  <div className="text-[11px] font-bold uppercase tracking-widest text-ink-muted">
-                    {featured.date}
-                  </div>
-                  <DisplayHeading
-                    text={featured.title}
-                    hi={featured.titleHi}
-                    className="mt-2 text-[clamp(1.5rem,2.6vw,2.15rem)]"
-                  />
-                  {/* Short yellow rule tying the card back to the brand */}
-                  <span className="mt-3 block h-1 w-14 rounded-full bg-taxi" />
-                  <p className="mt-3 leading-relaxed text-ink-muted">
-                    {featured.excerpt}
-                  </p>
-                  <div className="mt-5 flex items-center justify-between border-t border-ink/[0.08] pt-4">
-                    <span className="flex items-center gap-1.5 text-xs font-semibold text-ink-muted">
-                      <Clock className="h-4 w-4" /> {featured.read}
-                    </span>
-                    <span className="nudge flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-ink">
-                      Read More <Arrow className="h-4 w-4" />
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            </Reveal>
+              </div>
+            </Link>
           )}
 
           {grid.length > 0 ? (
-            <Reveal
-              // Remount on filter/page change so the reveal replays for new cards.
-              key={`grid-${active}-${term}-${current}`}
-              className={`grid gap-6 sm:grid-cols-2 ${featured ? "mt-8" : ""}`}
-              stagger={0.08}
-            >
+            <div className={`grid gap-6 sm:grid-cols-2 ${featured ? "mt-8" : ""}`}>
               {grid.map((p) => (
                 <Link
                   key={p.slug}
-                  data-reveal
                   href={`/blog/${p.slug}`}
                   className="card card-hover group flex flex-col overflow-hidden"
                 >
@@ -224,7 +213,7 @@ export default function BlogList() {
                   </div>
                 </Link>
               ))}
-            </Reveal>
+            </div>
           ) : (
             !featured && (
               <div className="card p-10 text-center">

@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import WhatsAppFab from "@/components/WhatsAppFab";
 import SmoothScroll from "@/components/SmoothScroll";
 import ScrollProgress from "@/components/ScrollProgress";
+import Preloader from "@/components/Preloader";
 
 const anton = Anton({
   weight: "400",
@@ -44,6 +45,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${anton.variable} ${inter.variable}`}>
       <body className="font-sans">
+        {/* Unmounts itself once the intro finishes — see Preloader. */}
+        <Preloader />
         {/* Ultra-faint grain so large light areas don't read as flat. */}
         <div aria-hidden className="grain" />
         <ScrollProgress />
