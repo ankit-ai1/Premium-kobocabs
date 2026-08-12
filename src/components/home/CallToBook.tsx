@@ -19,11 +19,10 @@ export default function CallToBook() {
         <div data-reveal className="relative mx-auto w-full max-w-md">
           <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-2.5">
             <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-white/5 shadow-[0_20px_50px_-16px_rgba(0,0,0,0.7)]">
-              {/* Oversized so the parallax drift never exposes an edge. */}
-              <div className="ctb-img absolute -inset-y-[8%] inset-x-0">
+              <div className="ctb-img absolute inset-0">
                 <Image
-                  src={img.callToBook}
-                  alt="A yellow KoboCabs Tata Harrier on a highway"
+                  src="https://res.cloudinary.com/dtg3lepr4/image/upload/v1786518719/ChatGPT_Image_Aug_12_2026_12_41_43_PM_g2ixhx.png"
+                  alt="A yellow YantraCabs Tata Harrier on a highway"
                   fill
                   sizes="(max-width:1024px) 100vw, 40vw"
                   className="object-cover"
@@ -71,3 +70,4 @@ export default function CallToBook() {
     </section>
   );
 }
+

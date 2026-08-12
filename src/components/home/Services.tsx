@@ -10,10 +10,34 @@ import { Route, Arrow, Snow, Users, Pin } from "@/components/Icons";
 import { useReveal } from "@/hooks/useGsap";
 
 const services = [
-  { Icon: Route, title: "Outstation Cabs", text: "Intercity rides between every major city of North India.", image: img.outstation },
-  { Icon: Pin, title: "One-Way Drops", text: "Pay only for the distance you travel — no return fare.", image: img.oneWay },
-  { Icon: Snow, title: "Hill Station Trips", text: "Expert mountain drives to Nainital, Mussoorie & Dehradun.", image: img.hillStation },
-  { Icon: Users, title: "Pilgrimage Routes", text: "Haridwar, Vrindavan & Vaishno Devi, made comfortable.", image: img.pilgrimage },
+  {
+    Icon: Route,
+    title: "Outstation Cabs",
+    text: "Intercity rides between every major city of North India.",
+    image:
+      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1786517714/ChatGPT_Image_Aug_12_2026_12_24_58_PM_se6jlg.png",
+  },
+  {
+    Icon: Pin,
+    title: "One-Way Drops",
+    text: "Pay only for the distance you travel — no return fare.",
+    image:
+      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1786517888/ChatGPT_Image_Aug_12_2026_12_27_46_PM_ajyhov.png",
+  },
+  {
+    Icon: Snow,
+    title: "Hill Station Trips",
+    text: "Expert mountain drives to Nainital, Mussoorie & Dehradun.",
+    image:
+      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1786517955/ChatGPT_Image_Aug_12_2026_12_28_58_PM_zq7uys.png",
+  },
+  {
+    Icon: Users,
+    title: "Pilgrimage Routes",
+    text: "Haridwar, Vrindavan & Vaishno Devi, made comfortable.",
+    image:
+      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1786518634/ChatGPT_Image_Aug_12_2026_12_40_17_PM_w9aqpu.png",
+  },
 ];
 
 export default function Services() {
@@ -55,7 +79,7 @@ export default function Services() {
           eyebrow="What We Offer"
           title="Rides For Every"
           hi="Reason"
-          sub="Whatever the trip, there's a KoboCabs service tuned for it."
+          sub="Whatever the trip, there's a YantraCabs service tuned for it."
         />
         <Link href="/premium-cabs" className="btn-outline hidden !rounded-full sm:inline-flex">
           All Services <Arrow className="h-4 w-4" />
@@ -74,7 +98,7 @@ export default function Services() {
               <div className="relative aspect-[16/11] overflow-hidden bg-ink/5">
                 <Image
                   src={image}
-                  alt={`${title} with KoboCabs`}
+                  alt={`${title} with YantraCabs`}
                   fill
                   sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 25vw"
                   className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
@@ -107,3 +131,4 @@ export default function Services() {
     </section>
   );
 }
+

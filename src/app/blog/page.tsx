@@ -13,7 +13,7 @@ export default function BlogPage() {
   return (
     <>
       <PageHero
-        eyebrow="KoboCabs Blog"
+        eyebrow="YantraCabs Blog"
         title="Travel Guides &"
         hi="Route Tips"
         sub="Expert guides for every North India road trip — hill stations, pilgrimages, one-way routes and more."

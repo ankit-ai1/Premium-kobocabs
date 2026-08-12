@@ -336,7 +336,7 @@ export default function BlogList() {
 
           <div className="rounded-2xl bg-ink p-6 text-white shadow-[var(--shadow-card)]">
             <h3 className="text-[11px] font-bold uppercase tracking-widest text-taxi">
-              About KoboCabs
+              About YantraCabs
             </h3>
             <p className="mt-3 text-sm leading-relaxed text-white/70">
               North India&apos;s trusted outstation cab service, based in {site.city}.

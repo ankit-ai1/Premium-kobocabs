@@ -111,7 +111,7 @@ export default function BookingWidget({ compact = false }: { compact?: boolean }
   /** Fallback when we have no coordinates: hand the trip straight to WhatsApp. */
   const sendOnWhatsApp = () => {
     const back = form.returnDate ? `, returning ${form.returnDate}` : "";
-    const msg = `Hi KoboCabs! I'd like to book a ${form.cab} (${form.trip}) from ${
+    const msg = `Hi YantraCabs! I'd like to book a ${form.cab} (${form.trip}) from ${
       pickup.query || "—"
     } to ${drop.query || "—"} on ${form.date || "—"} at ${form.time}${back}.`;
     window.open(`${site.whatsapp}?text=${encodeURIComponent(msg)}`, "_blank");

@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     "Bareilly cab",
     "Nainital taxi",
     "one-way cab",
-    "KoboCabs",
+    "YantraCabs",
   ],
 };
 

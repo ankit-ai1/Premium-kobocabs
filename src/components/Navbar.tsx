@@ -30,10 +30,10 @@ export default function Navbar() {
         <nav className="wrap flex h-[70px] items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5">
             <span className="grid h-10 w-10 place-items-center rounded-lg bg-taxi font-display text-2xl text-ink">
-              K
+              Y
             </span>
             <span className="font-display text-2xl uppercase tracking-tight leading-none">
-              Kobo<span className="text-taxi drop-shadow-[1px_1px_0_#0B0B0B]">Cabs</span>
+              Yantra<span className="text-taxi drop-shadow-[1px_1px_0_#0B0B0B]">Cabs</span>
             </span>
           </Link>
 

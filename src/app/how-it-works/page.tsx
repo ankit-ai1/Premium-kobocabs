@@ -75,8 +75,8 @@ export default function HowItWorksPage() {
               />
               <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-ink/5 shadow-[0_20px_55px_-20px_rgba(11,11,11,0.4)]">
                 <Image
-                  src={img.driver}
-                  alt="Verified KoboCabs driver"
+                  src="https://res.cloudinary.com/dtg3lepr4/image/upload/v1786519619/ChatGPT_Image_Aug_12_2026_12_55_55_PM_theatb.png"
+                  alt="Verified YantraCabs driver"
                   fill
                   sizes="(max-width:1024px) 100vw, 50vw"
                   className="object-cover"

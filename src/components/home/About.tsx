@@ -67,14 +67,13 @@ export default function About() {
             data-img-reveal
             className="relative aspect-[5/4] overflow-hidden rounded-2xl bg-ink/5 shadow-[0_18px_50px_-18px_rgba(11,11,11,0.35)]"
           >
-            {/* Oversized so the parallax drift never exposes an edge. */}
-            <div className="about-img absolute -inset-y-[8%] inset-x-0">
+            <div className="about-img absolute inset-0">
               <Image
                 src={img.about}
-                alt="A KoboCabs Mahindra Scorpio N on a highway at sunset"
+                alt="A YantraCabs Mahindra Scorpio N on a highway at sunset"
                 fill
                 sizes="(max-width:1024px) 100vw, 50vw"
-                className="object-cover"
+                className="object-cover object-center"
               />
             </div>
           </div>
@@ -91,13 +90,13 @@ export default function About() {
 
         {/* copy */}
         <div>
-          <span data-reveal className="eyebrow">About KoboCabs</span>
+          <span data-reveal className="eyebrow">About YantraCabs</span>
           <h2 data-reveal className="display t-h2 mt-3">
             More Than A Ride — A <span className="hi">Promise</span>
           </h2>
           <p data-reveal className="mt-5 leading-relaxed text-ink-muted">
             From a single cab in {site.city} to {site.stats.routes} routes across
-            North India, KoboCabs has grown on one idea: treat every passenger like
+            North India, YantraCabs has grown on one idea: treat every passenger like
             family. Honest fares, punctual drivers, and a phone that always answers.
           </p>
 
@@ -122,3 +121,4 @@ export default function About() {
     </section>
   );
 }
+

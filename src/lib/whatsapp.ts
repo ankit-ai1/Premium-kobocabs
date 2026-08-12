@@ -1,6 +1,6 @@
 import { site } from "@/data/site";
 
-/** Pre-typed booking message addressed to the KoboCabs WhatsApp number. */
+/** Pre-typed booking message addressed to the YantraCabs WhatsApp number. */
 export function whatsappBookingLink(d: {
   from: string;
   to: string;
@@ -12,7 +12,7 @@ export function whatsappBookingLink(d: {
   fare: number;
 }) {
   const msg =
-`New Cab Booking — KoboCabs
+`New Cab Booking — YantraCabs
 Pickup: ${d.from}
 Drop: ${d.to}
 Date: ${d.date || "—"}  Time: ${d.time || "—"}
@@ -22,3 +22,4 @@ Vehicle: ${d.vehicle}
 Estimated Fare: ₹${d.fare.toLocaleString("en-IN")} (all-inclusive)`;
   return `${site.whatsapp}?text=${encodeURIComponent(msg)}`;
 }
+

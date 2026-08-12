@@ -14,37 +14,38 @@ const cities: Record<
 > = {
   Bareilly: {
     blurb: "Our home base. Same-day outstation cabs to the hills, Delhi and every corner of UP.",
-    image: img.bareilly,
+    image:
+      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1786516699/ChatGPT_Image_Aug_12_2026_12_07_52_PM_ttlswa.png",
     points: ["Airport & railway pickups", "Hourly local rentals", "Fixed one-way drops"],
   },
   Nainital: {
     blurb: "Beat the traffic to the Queen of Hills with drivers who know every mountain bend.",
     image:
-      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1785423958/ChatGPT_Image_Jul_30_2026_08_35_28_PM_zt5ixb.png",
+      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1786516883/ChatGPT_Image_Aug_12_2026_12_11_01_PM_yhhnp3.png",
     points: ["Experienced hill drivers", "Sightseeing packages", "Door-to-door service"],
   },
   Delhi: {
     blurb: "Reliable intercity rides in and out of the capital, day or night.",
     image:
-      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1785424212/ChatGPT_Image_Jul_30_2026_08_39_58_PM_g1jrni.png",
+      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1786517081/ChatGPT_Image_Aug_12_2026_12_13_56_PM_gsd4gu.png",
     points: ["Airport transfers", "Corporate travel", "Round-trip fares"],
   },
   Haridwar: {
     blurb: "Comfortable pilgrimage journeys along the Ganga, planned around your rituals.",
     image:
-      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1785424434/ChatGPT_Image_Jul_30_2026_08_43_42_PM_zvfq20.png",
+      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1786517250/ChatGPT_Image_Aug_12_2026_12_15_44_PM_bdfi3d.png",
     points: ["Early morning pickups", "Multi-day plans", "Patient drivers"],
   },
   Agra: {
     blurb: "The Taj in three hours flat via the Yamuna Expressway — clean, quick, calm.",
     image:
-      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1785424703/ChatGPT_Image_Jul_30_2026_08_48_06_PM_hdgbl7.png",
+      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1786517437/ChatGPT_Image_Aug_12_2026_12_19_44_PM_ztb5sh.png",
     points: ["Same-day return", "Monument tours", "Flexible timings"],
   },
   Lucknow: {
     blurb: "City rides and outstation trips across the Nawabi capital and beyond.",
     image:
-      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1785424971/ChatGPT_Image_Jul_30_2026_08_52_04_PM_qfw8vi.png",
+      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1786517551/ChatGPT_Image_Aug_12_2026_12_22_08_PM_nayytq.png",
     points: ["Wedding cabs", "Business travel", "Local sightseeing"],
   },
 };
@@ -91,7 +92,7 @@ export default function LocationTabs() {
           eyebrow="Where We Drive"
           title="Cabs Across"
           hi="North India"
-          sub="Pick a city to see how KoboCabs gets you there."
+          sub="Pick a city to see how YantraCabs gets you there."
         />
 
         {/* tabs */}
@@ -120,7 +121,7 @@ export default function LocationTabs() {
             <Image
               key={c.image}
               src={c.image}
-              alt={`KoboCabs rides in ${active}`}
+              alt={`YantraCabs rides in ${active}`}
               fill
               sizes="(max-width:1024px) 100vw, 50vw"
               className="lt-img object-cover"
@@ -150,3 +151,4 @@ export default function LocationTabs() {
     </section>
   );
 }
+

@@ -4,13 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 /** Shown once per browser session — a reload mid-visit shouldn't replay it. */
-const SEEN_KEY = "kobocabs:preloaded";
+const SEEN_KEY = "YantraCabs:preloaded";
 
 type Lenis = { start: () => void; stop: () => void };
 const lenis = () => (window as unknown as { __lenis?: Lenis }).__lenis;
 
 /**
- * Full-screen intro: a top-down KoboCabs taxi drives in, flashes its lights,
+ * Full-screen intro: a top-down YantraCabs taxi drives in, flashes its lights,
  * throws all four doors open, closes them, and the overlay fades out.
  *
  * Two things here are load-bearing:
@@ -227,7 +227,7 @@ export default function Preloader() {
       ref={root}
       className="pl-root fixed inset-0 z-[9999] grid place-items-center overflow-hidden bg-ink"
       role="status"
-      aria-label="Loading KoboCabs"
+      aria-label="Loading YantraCabs"
     >
       {/* Without JS the timeline never runs, so make sure the overlay can
           never trap a no-script visitor behind it. */}
@@ -360,3 +360,4 @@ export default function Preloader() {
     </div>
   );
 }
+

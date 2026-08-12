@@ -27,7 +27,7 @@ export default function Footer() {
         {/* Brand */}
         <div className="md:col-span-2 lg:col-span-3">
           <Link href="/" className="font-display text-3xl uppercase tracking-tight">
-            Kobo<span className="text-taxi">Cabs</span>
+            Yantra<span className="text-taxi">Cabs</span>
           </Link>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/60">
             Premium outstation and city cab booking across North India — safe,

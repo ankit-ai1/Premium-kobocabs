@@ -35,7 +35,7 @@ export default function PremiumCabsPreview() {
             <div className="relative aspect-[16/11] overflow-hidden bg-ink/5">
               <Image
                 src={c.image}
-                alt={`KoboCabs ${c.name} — ${c.seats} seats, air-conditioned`}
+                alt={`YantraCabs ${c.name} — ${c.seats} seats, air-conditioned`}
                 fill
                 sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 25vw"
                 className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
@@ -75,3 +75,4 @@ export default function PremiumCabsPreview() {
     </section>
   );
 }
+
