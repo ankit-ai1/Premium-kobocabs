@@ -343,7 +343,7 @@ export default function Preloader() {
 
         <div className="pl-word mt-7 text-center">
           <div className="display text-3xl text-white sm:text-4xl">
-            Kobo<span className="hi">Cabs</span>
+            Yantra<span className="hi">Cabs</span>
           </div>
           <div className="mt-2 text-[11px] font-bold uppercase tracking-[0.3em] text-white/45">
             Premium Cab Booking
