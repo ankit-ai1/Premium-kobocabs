@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!--
+    The YantraCabs mark from the navbar: taxi-yellow rounded square, ink "Y".
+    Corner radius is 20% of the box, matching Tailwind's rounded-lg on the
+    h-10 w-10 badge in Navbar.tsx.
+
+    The Y is drawn as a path rather than <text> because a favicon renders with
+    no webfont available — Anton would silently fall back to a system face and
+    stop matching the header.
+  -->
+  <rect width="64" height="64" rx="13" fill="#FFCE00"/>
+  <path
+    fill="#0B0B0B"
+    d="M17 16 H26 L32 25.5 L38 16 H47 L36.5 33 V48 H27.5 V33 Z"
+  />
+</svg>

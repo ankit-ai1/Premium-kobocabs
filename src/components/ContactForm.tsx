@@ -7,12 +7,35 @@ import { Arrow } from "./Icons";
 export default function ContactForm() {
   const [form, setForm] = useState({ name: "", phone: "", email: "", message: "" });
   const [sent, setSent] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const set = (k: keyof typeof form) => (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
-  const submit = () => {
+  // Save the lead first so it lands in the admin inbox, then hand off to
+  // WhatsApp. A DB failure must not cost us the enquiry, so WhatsApp still
+  // opens either way.
+  const submit = async () => {
+    setBusy(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/enquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setError(data.error ?? "Could not save your details — opening WhatsApp instead.");
+      }
+    } catch {
+      setError("Could not reach us — opening WhatsApp instead.");
+    } finally {
+      setBusy(false);
+    }
+
     const msg = `New enquiry from ${form.name || "—"} (${form.phone || "—"}, ${
       form.email || "—"
     }): ${form.message || "—"}`;
@@ -53,8 +76,14 @@ export default function ContactForm() {
           />
         </div>
 
-        <button onClick={submit} className="btn-taxi w-full">
-          Send Message <Arrow className="h-4 w-4" />
+        {error && (
+          <p className="rounded-lg border border-ink/15 bg-taxi/15 px-4 py-2.5 text-xs font-medium text-ink">
+            {error}
+          </p>
+        )}
+
+        <button onClick={submit} disabled={busy} className="btn-taxi w-full disabled:opacity-60">
+          {busy ? "Sending…" : "Send Message"} <Arrow className="h-4 w-4" />
         </button>
 
         <p className="text-center text-xs text-ink-muted">

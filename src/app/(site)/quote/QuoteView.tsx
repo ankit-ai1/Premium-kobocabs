@@ -7,9 +7,11 @@ import { useSearchParams } from "next/navigation";
 import { gsap } from "@/lib/gsap";
 import { getRoute, type Place, type RouteResult } from "@/lib/geo";
 import { quoteFares } from "@/lib/fare";
-import { whatsappBookingLink } from "@/lib/whatsapp";
 import { Arrow, Pin, Route, Calendar, Clock, Users, Chat } from "@/components/Icons";
 import BookLink from "@/components/BookLink";
+import BookingDialog, { type BookingDraft } from "@/components/BookingDialog";
+
+type LiveRate = { id: string; name: string; ratePerKm: number; seats: number };
 
 // Leaflet touches `window`, so the map can only load in the browser.
 const QuoteMap = dynamic(() => import("@/components/QuoteMap"), {
@@ -41,7 +43,26 @@ export default function QuoteView() {
   const trip = params.get("trip") ?? "One Way";
 
   const [route, setRoute] = useState<RouteResult | null>(null);
+  const [rates, setRates] = useState<LiveRate[]>([]);
+  const [draft, setDraft] = useState<BookingDraft | null>(null);
   const scope = useRef<HTMLElement>(null);
+
+  // Live rates so an admin rate change shows up here without a redeploy.
+  // On any failure quoteFares falls back to the static list in site.ts.
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/vehicles")
+      .then((r) => r.json())
+      .then((d) => {
+        if (!cancelled && Array.isArray(d.vehicles)) setRates(d.vehicles);
+      })
+      .catch(() => {
+        /* static fallback is fine */
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // Summary → map → fare cards, in that order, once the route resolves.
   // fromTo with an explicit end state means an interrupted run can never
@@ -92,7 +113,7 @@ export default function QuoteView() {
     );
   }
 
-  const fares = route ? quoteFares(route.distanceKm, trip) : [];
+  const fares = route ? quoteFares(route.distanceKm, trip, rates) : [];
 
   return (
     <section ref={scope} className="wrap py-16 sm:py-20">
@@ -224,19 +245,17 @@ export default function QuoteView() {
                 <div className="mt-auto pt-7">
                   <button
                     onClick={() =>
-                      window.open(
-                        whatsappBookingLink({
-                          from: from.label,
-                          to: to.label,
-                          date,
-                          time,
-                          trip,
-                          km: route.distanceKm,
-                          vehicle: v.name,
-                          fare: v.fare,
-                        }),
-                        "_blank"
-                      )
+                      setDraft({
+                        from,
+                        to,
+                        date,
+                        time,
+                        tripType: trip,
+                        vehicleSlug: v.id,
+                        vehicleName: v.name,
+                        estimatedFare: v.fare,
+                        estimatedKm: route.distanceKm,
+                      })
                     }
                     className="btn-taxi w-full !rounded-xl !py-3.5 text-xs"
                   >
@@ -253,6 +272,8 @@ export default function QuoteView() {
       >
         ← Change trip details
       </Link>
+
+      {draft && <BookingDialog draft={draft} onClose={() => setDraft(null)} />}
     </section>
   );
 }
