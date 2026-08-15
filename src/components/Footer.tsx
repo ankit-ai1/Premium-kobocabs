@@ -17,6 +17,16 @@ const company = [
   { label: "Reviews", href: "/#reviews" },
 ];
 
+/**
+ * Policy pages. Payment gateways check these are reachable from the site during
+ * onboarding, so they stay in the persistent footer rather than a menu.
+ */
+const legal = [
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Terms & Conditions", href: "/terms" },
+  { label: "Cancellation & Refunds", href: "/refund-policy" },
+];
+
 /** Top routes out of our home city, straight from the routes data. */
 const popular = routeGroups[0].routes.slice(0, 6);
 
@@ -152,9 +162,15 @@ export default function Footer() {
             rights reserved.
           </p>
           <div className="flex flex-wrap justify-center gap-x-6">
-            <Link href="#" className="inline-block py-2 transition-colors hover:text-white">Privacy Policy</Link>
-            <Link href="#" className="inline-block py-2 transition-colors hover:text-white">Terms of Service</Link>
-            <Link href="#" className="inline-block py-2 transition-colors hover:text-white">Refund Policy</Link>
+            {legal.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className="inline-block py-2 transition-colors hover:text-white"
+              >
+                {l.label}
+              </Link>
+            ))}
           </div>
         </div>
       </div>

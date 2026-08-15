@@ -56,18 +56,30 @@ Verify and webhook are **both** required. If a customer closes the tab after
 paying, the verify call never fires but the money has moved — only the webhook
 reflects that.
 
-## Open business decisions
+## Business decisions
 
-These change the code, so settle them before building:
+**Settled 2026-08-15 — charge a fixed ₹500 advance.** The balance is collected
+by the driver. Chosen over 20% and full prepay: on a typical ₹2,210 trip, asking
+for the whole fare upfront costs conversion, while ₹500 is enough commitment to
+deter no-shows.
 
-- **Advance vs full payment.** Full prepay on a ₹8,000 outstation trip hurts
-  conversion. A fixed advance (₹500) or a percentage (20%) with the balance to
-  the driver is the usual pattern — `payment_status` already has an
-  `advance_paid` value for this.
+What that means in code:
+
+- the Razorpay order amount is **₹500 → `50000` paise**, *not* `fare_total`
+- on capture, set `payment_status = 'advance_paid'` (not `'paid'`) and
+  `amount_paid = 500`
+- quote and checkout UI must show the split, e.g. "Pay ₹500 now · ₹1,710 to
+  driver" — the customer should never think ₹500 is the whole fare
+- admin booking detail should show balance due (`fare_total - amount_paid`) so
+  staff can tell the driver what to collect
+
+Still open:
+
 - **Cancellation and refund policy.** Needed for the customer-facing terms and
-  for the refund action in admin.
+  for the refund action in admin. How many hours before pickup gets a full
+  refund of the ₹500?
 - **Guest checkout vs customer accounts.** Guest (phone only) converts better;
-  accounts enable a "my bookings" page.
+  accounts enable a "my bookings" page. Current build is guest-only.
 
 ## Admin work that follows
 
