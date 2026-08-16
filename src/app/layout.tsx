@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Anton, Inter } from "next/font/google";
 import "./globals.css";
 import { site } from "@/data/site";
+import { siteUrl } from "@/lib/site-url";
 
 const anton = Anton({
   weight: "400",
@@ -18,6 +19,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  // Makes the relative image paths in per-page openGraph blocks resolve to
+  // absolute URLs, which is what social platforms require.
+  metadataBase: new URL(siteUrl()),
   title: `${site.name} — ${site.tagline}`,
   description:
     "Book outstation and city cabs at fixed, all-inclusive prices. Verified drivers, clean vehicles, zero advance. 500+ routes across North India.",
