@@ -1,9 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { nav } from "@/data/site";
+import { img, nav, site } from "@/data/site";
 import BookLink from "@/components/BookLink";
 
 export default function Navbar() {
@@ -27,12 +28,19 @@ export default function Navbar() {
           scrolled ? "border-b border-ink/10 shadow-[0_2px_20px_rgba(0,0,0,0.06)]" : ""
         }`}
       >
-        <nav className="wrap flex h-[70px] items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5">
-            <span className="grid h-10 w-10 place-items-center rounded-lg bg-taxi font-display text-2xl text-ink">
-              Y
-            </span>
-            <span className="font-display text-2xl uppercase tracking-tight leading-none">
+        <nav className="wrap flex h-[86px] items-center justify-between">
+          <Link href="/" className="flex items-center gap-3">
+            {/* Square source art — the width/height must match that ratio or the
+                box goes wide and object-contain shrinks the mark to fit. */}
+            <Image
+              src={img.logo}
+              alt=""
+              width={512}
+              height={512}
+              priority
+              className="h-16 w-16 shrink-0 rounded-lg object-contain"
+            />
+            <span className="font-display text-2xl uppercase tracking-tight leading-none sm:text-[1.75rem]">
               Yantra<span className="text-taxi drop-shadow-[1px_1px_0_#0B0B0B]">Cabs</span>
             </span>
           </Link>

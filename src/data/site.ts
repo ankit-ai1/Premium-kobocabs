@@ -42,6 +42,7 @@ export const nav = [
 // Self-hosted in /public/images so nothing depends on a third-party CDN.
 // Drop your own photos in with these exact filenames to swap the whole site.
 export const img = {
+  logo: "https://res.cloudinary.com/dtg3lepr4/image/upload/v1786983788/ChatGPT_Image_Aug_17_2026_09_52_44_PM_ovagvh.png",
   heroCity: "/images/hero-city.jpg",
   cabNight: "/images/cab-night.jpg",
   driver: "/images/driver.jpg",

@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import { site, routeGroups } from "@/data/site";
+import { site, routeGroups, img } from "@/data/site";
 import { Phone, Mail, Pin, Clock, Chat, Instagram, Twitter, Facebook } from "./Icons";
 import RouteBookLink from "./RouteBookLink";
 
@@ -36,8 +37,17 @@ export default function Footer() {
       <div className="wrap grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-12">
         {/* Brand */}
         <div className="md:col-span-2 lg:col-span-3">
-          <Link href="/" className="font-display text-3xl uppercase tracking-tight">
-            Yantra<span className="text-taxi">Cabs</span>
+          <Link href="/" className="inline-flex items-center gap-3">
+            <Image
+              src={img.logo}
+              alt=""
+              width={512}
+              height={512}
+              className="h-16 w-16 shrink-0 rounded-lg object-contain"
+            />
+            <span className="font-display text-3xl uppercase tracking-tight">
+              Yantra<span className="text-taxi">Cabs</span>
+            </span>
           </Link>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/60">
             Premium outstation and city cab booking across North India — safe,
