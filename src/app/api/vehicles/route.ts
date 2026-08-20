@@ -16,10 +16,15 @@ export async function GET() {
     const supabase = createAdminClient();
     const { data, error } = await supabase
       .from("vehicles")
-      .select("slug, name, rate_per_km, seats, image_url")
+      .select("slug, name, rate_one_way, rate_round_trip, seats, image_url")
       .eq("active", true)
       .order("sort_order", { ascending: true })
-      .returns<Pick<Vehicle, "slug" | "name" | "rate_per_km" | "seats" | "image_url">[]>();
+      .returns<
+        Pick<
+          Vehicle,
+          "slug" | "name" | "rate_one_way" | "rate_round_trip" | "seats" | "image_url"
+        >[]
+      >();
 
     if (error) throw error;
 
@@ -28,7 +33,8 @@ export async function GET() {
         vehicles: (data ?? []).map((v) => ({
           id: v.slug,
           name: v.name,
-          ratePerKm: Number(v.rate_per_km),
+          rateOneWay: Number(v.rate_one_way),
+          rateRoundTrip: Number(v.rate_round_trip),
           seats: v.seats,
           image: v.image_url,
         })),

@@ -23,7 +23,8 @@ export type Vehicle = {
   id: string;
   slug: string;
   name: string;
-  rate_per_km: number;
+  rate_one_way: number;
+  rate_round_trip: number;
   seats: number;
   ac: boolean;
   tag: string | null;

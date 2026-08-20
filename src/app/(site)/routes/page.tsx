@@ -9,7 +9,7 @@ import RouteBookLink from "@/components/RouteBookLink";
 export const metadata: Metadata = {
   title: `Routes — ${site.name}`,
   description:
-    "Transparent fares and verified drivers across 36+ detailed routes in UP, Delhi NCR, Uttarakhand, Himachal Pradesh and Rajasthan.",
+    "Transparent fares and verified drivers across 100+ outstation, one-way and airport transfer routes across North India.",
 };
 
 export default function RoutesPage() {
@@ -21,7 +21,7 @@ export default function RoutesPage() {
         eyebrow="All Routes"
         title="Popular Outstation"
         hi="Cab Routes"
-        sub={`Transparent fares, verified drivers and zero advance booking across ${total}+ detailed routes in UP, Delhi NCR, Uttarakhand, Himachal Pradesh and Rajasthan.`}
+        sub={`Transparent fares, verified drivers and zero advance booking across ${total}+ outstation, one-way and airport transfer routes across North India.`}
       />
 
       <section className="wrap py-20">
@@ -32,7 +32,7 @@ export default function RoutesPage() {
                 <div>
                   <span className="eyebrow">Departures</span>
                   <h2 className="display t-h2 mt-2.5">
-                    Cabs From <span className="hi">{g.from}</span>
+                    {g.lead ?? "Cabs From"} <span className="hi">{g.from}</span>
                   </h2>
                 </div>
                 <span className="shrink-0 rounded-full bg-taxi px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-ink">
@@ -41,16 +41,18 @@ export default function RoutesPage() {
               </div>
               <div className="mt-5 h-px bg-gradient-to-r from-ink/20 via-ink/8 to-transparent" />
 
-              <div className="mt-7 flex flex-wrap gap-3">
+              {/* A grid, not flex-wrap: with 80 routes a ragged right edge reads as
+                  untidy, and equal columns line every chip up. */}
+              <div className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
                 {g.routes.map((r) => (
                   <RouteBookLink
                     key={r}
                     route={r}
-                    className="group inline-flex items-center gap-2 rounded-full border border-ink/[0.08] bg-white px-5 py-2.5 text-sm font-semibold text-ink transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-taxi/50 hover:bg-taxi/10"
+                    className="group flex items-center justify-between gap-2 rounded-full border border-ink/[0.08] bg-white px-4 py-2.5 text-[13px] font-semibold text-ink transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-taxi/50 hover:bg-taxi/10"
                     style={{ boxShadow: "var(--shadow-card)" }}
                   >
-                    {r} Cabs
-                    <Arrow className="h-3.5 w-3.5 -translate-x-1 text-ink-muted opacity-0 transition-all duration-300 ease-out group-hover:translate-x-0 group-hover:text-ink group-hover:opacity-100" />
+                    <span className="truncate">{r} Cabs</span>
+                    <Arrow className="h-3.5 w-3.5 shrink-0 -translate-x-1 text-ink-muted opacity-0 transition-all duration-300 ease-out group-hover:translate-x-0 group-hover:text-ink group-hover:opacity-100" />
                   </RouteBookLink>
                 ))}
               </div>

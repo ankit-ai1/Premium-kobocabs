@@ -54,10 +54,10 @@ export default function FareEstimator() {
                 {c.name}
               </div>
               <div className="mt-2 font-display text-3xl tracking-wide">
-                ₹{(km * c.ratePerKm).toLocaleString("en-IN")}
+                ₹{(km * c.rateOneWay).toLocaleString("en-IN")}
               </div>
               <div className="mt-1 text-[11px] text-ink-muted">
-                ₹{c.ratePerKm}/km · {c.seats} seats
+                ₹{c.rateOneWay}/km · {c.seats} seats
               </div>
             </div>
           ))}

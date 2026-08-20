@@ -1,5 +1,5 @@
 import { createAdminClient } from "@/lib/supabase/admin";
-import { computeFare } from "@/lib/fare";
+import { computeFare, rateFor } from "@/lib/fare";
 import { getRoute } from "@/lib/geo";
 import type { Vehicle } from "@/lib/supabase/types";
 import {
@@ -71,10 +71,12 @@ export async function POST(request: Request) {
     // Rate comes from the DB, never the request.
     const { data: vehicle, error: vehicleError } = await supabase
       .from("vehicles")
-      .select("id, slug, name, rate_per_km")
+      .select("id, slug, name, rate_one_way, rate_round_trip")
       .eq("slug", vehicleSlug)
       .eq("active", true)
-      .maybeSingle<Pick<Vehicle, "id" | "slug" | "name" | "rate_per_km">>();
+      .maybeSingle<
+        Pick<Vehicle, "id" | "slug" | "name" | "rate_one_way" | "rate_round_trip">
+      >();
 
     if (vehicleError) throw vehicleError;
     if (!vehicle) return jsonError("That cab is not available right now.", 404);
@@ -86,8 +88,13 @@ export async function POST(request: Request) {
       { label: toLabel, lat: toLat!, lon: toLon! }
     );
 
-    const ratePerKm = Number(vehicle.rate_per_km);
-    const fareTotal = computeFare(route.distanceKm, ratePerKm, tripType);
+    // Both rates come from the DB; which one applies is decided by trip type.
+    const rates = {
+      rateOneWay: Number(vehicle.rate_one_way),
+      rateRoundTrip: Number(vehicle.rate_round_trip),
+    };
+    const appliedRate = rateFor(rates, tripType);
+    const fareTotal = computeFare(route.distanceKm, rates, tripType);
 
     const { data: booking, error: insertError } = await supabase
       .from("bookings")
@@ -108,7 +115,7 @@ export async function POST(request: Request) {
         distance_is_estimate: route.approximate,
         vehicle_id: vehicle.id,
         vehicle_name: vehicle.name,
-        rate_per_km: ratePerKm,
+        rate_per_km: appliedRate,
         fare_total: fareTotal,
         customer_note: customerNote || null,
         status: "pending",

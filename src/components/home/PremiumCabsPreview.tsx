@@ -26,7 +26,9 @@ export default function PremiumCabsPreview() {
       </div>
 
       <div ref={ref} className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {premiumCabs.map((c) => (
+        {/* Homepage shows the first four so the row stays even; the full line-up
+            lives on /premium-cabs. */}
+        {premiumCabs.slice(0, 4).map((c) => (
           <article
             key={c.id}
             data-reveal
@@ -50,7 +52,7 @@ export default function PremiumCabsPreview() {
               <div className="flex items-baseline justify-between gap-2">
                 <h3 className="card-title">{c.name}</h3>
                 <span className="num-taxi shrink-0 text-2xl">
-                  ₹{c.ratePerKm}
+                  ₹{c.rateOneWay}
                   <span className="text-sm text-ink [text-shadow:none]">/km</span>
                 </span>
               </div>

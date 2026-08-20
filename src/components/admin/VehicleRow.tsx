@@ -44,17 +44,32 @@ export default function VehicleRow({ vehicle }: { vehicle: Vehicle }) {
           <p className="mt-1 text-[11px] text-ink-muted">slug: {vehicle.slug}</p>
         </div>
 
-        <div className="w-32">
-          <label className={label} htmlFor={`rate-${vehicle.id}`}>
-            ₹ / km
+        <div className="w-28">
+          <label className={label} htmlFor={`ow-${vehicle.id}`}>
+            ₹/km one way
           </label>
           <input
-            id={`rate-${vehicle.id}`}
-            name="rate_per_km"
+            id={`ow-${vehicle.id}`}
+            name="rate_one_way"
             type="number"
             step="0.5"
             min="1"
-            defaultValue={Number(vehicle.rate_per_km)}
+            defaultValue={Number(vehicle.rate_one_way)}
+            className="input"
+          />
+        </div>
+
+        <div className="w-28">
+          <label className={label} htmlFor={`rt-${vehicle.id}`}>
+            ₹/km round trip
+          </label>
+          <input
+            id={`rt-${vehicle.id}`}
+            name="rate_round_trip"
+            type="number"
+            step="0.5"
+            min="1"
+            defaultValue={Number(vehicle.rate_round_trip)}
             className="input"
           />
         </div>

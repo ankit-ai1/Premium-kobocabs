@@ -92,9 +92,15 @@ export async function updateVehicle(formData: FormData): Promise<ActionResult> {
   const id = str(formData.get("id"), 40);
   if (!id) return fail("Missing vehicle id.");
 
-  const rate = Number(formData.get("rate_per_km"));
-  if (!Number.isFinite(rate) || rate <= 0) return fail("Rate must be a number above zero.");
-  if (rate > 1000) return fail("That rate looks wrong — please check before saving.");
+  const oneWay = Number(formData.get("rate_one_way"));
+  const roundTrip = Number(formData.get("rate_round_trip"));
+  for (const [labelText, rate] of [
+    ["One-way rate", oneWay],
+    ["Round-trip rate", roundTrip],
+  ] as const) {
+    if (!Number.isFinite(rate) || rate <= 0) return fail(`${labelText} must be above zero.`);
+    if (rate > 1000) return fail(`${labelText} looks wrong — please check before saving.`);
+  }
 
   const seats = Number(formData.get("seats"));
   if (!Number.isInteger(seats) || seats < 1 || seats > 60) return fail("Invalid seat count.");
@@ -103,7 +109,8 @@ export async function updateVehicle(formData: FormData): Promise<ActionResult> {
   const { error } = await db
     .from("vehicles")
     .update({
-      rate_per_km: rate,
+      rate_one_way: oneWay,
+      rate_round_trip: roundTrip,
       seats,
       name: str(formData.get("name"), 80) || undefined,
       active: formData.get("active") === "on",

@@ -73,7 +73,10 @@ export const img = {
 export type Cab = {
   id: string;
   name: string;
-  ratePerKm: number;
+  /** Per-km rate for a one-way drop. Higher, because the return leg runs empty. */
+  rateOneWay: number;
+  /** Per-km rate for a round trip, billed across the total distance of both legs. */
+  rateRoundTrip: number;
   seats: number;
   ac: boolean;
   tag: string;
@@ -87,7 +90,8 @@ export const premiumCabs: Cab[] = [
   {
     id: "hatchback",
     name: "Hatchback",
-    ratePerKm: 11,
+    rateOneWay: 13,
+    rateRoundTrip: 10,
     seats: 4,
     ac: true,
     tag: "Smart & Economical",
@@ -99,7 +103,8 @@ export const premiumCabs: Cab[] = [
   {
     id: "sedan",
     name: "Sedan",
-    ratePerKm: 13,
+    rateOneWay: 15,
+    rateRoundTrip: 11,
     seats: 4,
     ac: true,
     tag: "Refined & Comfortable",
@@ -109,64 +114,173 @@ export const premiumCabs: Cab[] = [
     bestFor: ["Business Travel", "Airport Drop"],
   },
   {
-    id: "suv",
-    name: "SUV",
-    ratePerKm: 16,
+    id: "ertiga",
+    name: "Ertiga",
+    rateOneWay: 18,
+    rateRoundTrip: 14,
     seats: 6,
     ac: true,
-    tag: "Powerful & Spacious",
-    blurb: "The choice for hills, families & long hauls.",
-    models: ["Toyota Innova Crysta", "Maruti Ertiga", "Mahindra Marazzo"],
+    tag: "Roomy & Practical",
+    blurb: "Extra room for the family without the SUV price tag.",
+    models: ["Maruti Ertiga", "Maruti XL6"],
     image: img.suv,
-    bestFor: ["Family Groups (5–6)", "Hill Stations"],
+    bestFor: ["Family Groups (5–6)", "Weekend Trips"],
+  },
+  {
+    id: "premium-suv",
+    name: "Premium SUV",
+    rateOneWay: 35,
+    rateRoundTrip: 20,
+    seats: 7,
+    ac: true,
+    tag: "Powerful & Spacious",
+    blurb: "The choice for hills, long hauls and travelling in comfort.",
+    models: ["Kia Carens", "Toyota Innova Crysta"],
+    image: img.suv,
+    bestFor: ["Hill Stations", "Char Dham Yatra"],
   },
   {
     id: "tempo",
     name: "Tempo Traveller",
-    ratePerKm: 22,
+    rateOneWay: 55,
+    rateRoundTrip: 25,
     seats: 12,
     ac: true,
     tag: "Grand & Commanding",
     blurb: "Built for large groups — pilgrimages, tours & events.",
     models: ["Force Traveller 12-Seater", "Tata Winger", "Tempo Traveller Luxury"],
     image: img.tempo,
-    bestFor: ["Groups 9–12", "College Tours"],
+    bestFor: ["Groups 9–12", "Char Dham Yatra"],
   },
 ];
 
 // ---- Trip types ----
 export const tripTypes = [
   { title: "Business Trip", note: "Airport transfers, client meets.", cab: "Sedan" },
-  { title: "Family Vacation", note: "Up to 6 members, heavy luggage.", cab: "SUV" },
-  { title: "Hill Station", note: "Nainital, Mussoorie, Shimla.", cab: "SUV" },
-  { title: "Pilgrimage", note: "Haridwar, Varanasi, Vrindavan.", cab: "SUV / Tempo" },
+  { title: "Family Vacation", note: "Up to 6 members, heavy luggage.", cab: "Ertiga" },
+  { title: "Hill Station", note: "Nainital, Mussoorie, Shimla.", cab: "Premium SUV" },
+  { title: "Pilgrimage", note: "Char Dham, Haridwar, Varanasi.", cab: "Premium SUV" },
   { title: "Group Tour", note: "9–12 people, weddings, outings.", cab: "Tempo Traveller" },
   { title: "Budget Trip", note: "Solo or couple, short routes.", cab: "Hatchback" },
 ];
 
 // ---- Routes ----
-export type RouteGroup = { from: string; count: number; routes: string[] };
+/**
+ * A group of routes shown on the Routes page.
+ * `lead` overrides the "Cabs From" heading for groups that are not a city.
+ */
+export type RouteGroup = {
+  from: string;
+  count: number;
+  routes: string[];
+  lead?: string;
+};
 
 export const routeGroups: RouteGroup[] = [
   {
     from: "Bareilly",
-    count: 15,
+    count: 80,
     routes: [
-      "Bareilly to Delhi",
-      "Bareilly to Nainital",
-      "Bareilly to Haldwani",
+      "Bareilly to Delhi NCR",
+      "Bareilly to Mumbai",
+      "Bareilly to Pune",
+      "Bareilly to Kolkata",
+      "Bareilly to Ahmedabad",
+      "Bareilly to Jaipur",
       "Bareilly to Lucknow",
+      "Bareilly to Varanasi",
+      "Bareilly to Prayagraj",
       "Bareilly to Agra",
       "Bareilly to Haridwar",
-      "Bareilly to Dehradun",
       "Bareilly to Rishikesh",
-      "Bareilly to Jim Corbett",
-      "Bareilly to Moradabad",
+      "Bareilly to Dehradun",
+      "Bareilly to Kainchi Dham",
       "Bareilly to Ayodhya",
-      "Bareilly to Varanasi",
+      "Bareilly to Nainital",
+      "Bareilly to Mathura",
+      "Bareilly to Vrindavan",
+      "Bareilly to Khatu Shyam Ji",
+      "Bareilly to Salasar Balaji",
+      "Bareilly to Kota",
+      "Bareilly to Udaipur",
+      "Bareilly to Jodhpur",
+      "Bareilly to Jaisalmer",
+      "Bareilly to Jammu",
+      "Bareilly to Amritsar",
+      "Bareilly to Shimla",
+      "Bareilly to Manali",
+      "Bareilly to Banbasa",
+      "Bareilly to Kanpur",
+      "Bareilly to Gorakhpur",
+      "Bareilly to Patna",
+      "Bareilly to Khatima",
+      "Bareilly to Pilibhit",
+      "Bareilly to Shahjahanpur",
+      "Bareilly to Sitapur",
+      "Bareilly to Lakhimpur",
+      "Bareilly to Gola Gokarannath",
+      "Bareilly to Badaun",
+      "Bareilly to Kasganj",
+      "Bareilly to Etah",
+      "Bareilly to Manona Dham",
+      "Bareilly to Aonla",
+      "Bareilly to Moradabad",
+      "Bareilly to Rampur",
+      "Bareilly to Rudrapur",
+      "Bareilly to Kashipur",
+      "Bareilly to Sitarganj",
+      "Bareilly to Haldwani",
+      "Bareilly to Kathgodam",
+      "Bareilly to Almora",
+      "Bareilly to Ranikhet",
+      "Bareilly to Pithoragarh",
+      "Bareilly to Sonprayag",
+      "Bareilly to Gaurikund",
+      "Bareilly to Gaya",
+      "Bareilly to Gwalior",
+      "Bareilly to Indore",
       "Bareilly to Mussoorie",
-      "Bareilly to Jaipur",
-      "Bareilly to Noida",
+      "Bareilly to Vadodara",
+      "Bareilly to Nagpur",
+      "Bareilly to Bhopal",
+      "Bareilly to Begusarai",
+      "Bareilly to Bangalore",
+      "Bareilly to Lansdowne",
+      "Bareilly to Kurukshetra",
+      "Bareilly to Patiala",
+      "Bareilly to Chandigarh",
+      "Bareilly to Kasauli",
+      "Bareilly to Kalka",
+      "Bareilly to Asansol",
+      "Bareilly to Bilaspur",
+      "Bareilly to Thane",
+      "Bareilly to Navi Mumbai",
+      "Bareilly to Chitrakoot",
+      "Bareilly to Mayawati Ashram",
+      "Bareilly to Gairsain",
+      "Bareilly to Dhanaulti",
+      "Bareilly to Kanatal",
+      "Bareilly to Landour",
+    ],
+  },
+  {
+    from: "Airports",
+    lead: "Transfers To",
+    count: 13,
+    routes: [
+      "Bareilly to Delhi Airport",
+      "Bareilly to Jewar Airport",
+      "Bareilly to Hindon Airport",
+      "Bareilly to Pantnagar Airport",
+      "Bareilly to Bareilly Airport",
+      "Bareilly to Lucknow Airport",
+      "Bareilly to Varanasi Airport",
+      "Bareilly to Dehradun Airport",
+      "Bareilly to Patna Airport",
+      "Bareilly to Jammu Airport",
+      "Bareilly to Ahmedabad Airport",
+      "Bareilly to Surat Airport",
+      "Bareilly to Mumbai Airport",
     ],
   },
   {

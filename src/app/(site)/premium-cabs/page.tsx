@@ -99,7 +99,7 @@ export default function PremiumCabsPage() {
                   <div className="flex items-baseline justify-between gap-3">
                     <h3 className="display t-h3">{c.name}</h3>
                     <span className="num-taxi shrink-0 text-4xl">
-                      ₹{c.ratePerKm}
+                      ₹{c.rateOneWay}
                       <span className="text-lg text-ink [text-shadow:none]">/km</span>
                     </span>
                   </div>

@@ -11,7 +11,13 @@ import { Arrow, Pin, Route, Calendar, Clock, Users, Chat } from "@/components/Ic
 import BookLink from "@/components/BookLink";
 import BookingDialog, { type BookingDraft } from "@/components/BookingDialog";
 
-type LiveRate = { id: string; name: string; ratePerKm: number; seats: number };
+type LiveRate = {
+  id: string;
+  name: string;
+  rateOneWay: number;
+  rateRoundTrip: number;
+  seats: number;
+};
 
 // Leaflet touches `window`, so the map can only load in the browser.
 const QuoteMap = dynamic(() => import("@/components/QuoteMap"), {
@@ -218,7 +224,7 @@ export default function QuoteView() {
                 <div className="flex items-start justify-between gap-3">
                   <h3 className="card-title">{v.name}</h3>
                   <span className="shrink-0 rounded-full bg-taxi px-2.5 py-1 text-[11px] font-bold uppercase tracking-widest text-ink">
-                    ₹{v.ratePerKm}/km
+                    ₹{v.appliedRate}/km
                   </span>
                 </div>
 
