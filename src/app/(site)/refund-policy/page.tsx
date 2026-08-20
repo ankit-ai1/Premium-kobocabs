@@ -29,9 +29,9 @@ export default function RefundPolicyPage() {
         </p>
         <p>
           Only the ₹{advanceAmount} advance is ever refundable, because it is the
-          only amount we have collected. Fares quoted on our site are
-          all-inclusive of toll, GST and driver allowance. State entry permits,
-          where applicable, are paid at the booth and are not part of the fare.
+          only amount we have collected. Fares quoted on our site are estimates
+          based on distance; toll, driver allowance and state entry permits are
+          not part of the fare and are payable separately.
         </p>
       </Clause>
 

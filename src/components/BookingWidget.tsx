@@ -247,7 +247,9 @@ export default function BookingWidget({ compact = false }: { compact?: boolean }
                 the WhatsApp message) should only ever hold the cab name. */}
             {premiumCabs.map((c) => (
               <option key={c.id} value={c.name}>
-                {`${c.name} · ₹${c.rateOneWay}/km`}
+                {c.rateOneWay === null
+                  ? `${c.name} · rate on request`
+                  : `${c.name} · ₹${c.rateOneWay}/km`}
               </option>
             ))}
           </select>

@@ -9,7 +9,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
 
 const points = [
-  "Zero hidden charges — toll, GST & allowance included",
+  "No hidden charges — toll and driver allowance billed at actuals",
   "Driver dispatched 30 minutes before every pickup",
   "Clean, sanitised and inspected before each trip",
 ];

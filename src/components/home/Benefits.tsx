@@ -8,7 +8,7 @@ import { useReveal } from "@/hooks/useGsap";
 const benefits = [
   ["01", "Always On Time", "Driver dispatched 30 minutes before pickup — every time."],
   ["02", "Professional Drivers", "Background-verified chauffeurs holding valid commercial licences."],
-  ["03", "Transparent Billing", "Full fare breakdown before you confirm. Toll, GST and allowance included."],
+  ["03", "Transparent Billing", "Full fare breakdown before you confirm. Toll and driver allowance billed at actuals."],
   ["04", "Just 15% To Confirm", "Lock your booking with a small advance. Pay the balance at trip end."],
   ["05", "Modern Premium Cabs", "Hatchback, Sedan, SUV and Tempo — fully AC and GPS-tracked."],
   ["06", "24×7 Customer Support", "WhatsApp and call support round the clock, even on holidays."],

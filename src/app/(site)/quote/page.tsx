@@ -5,7 +5,7 @@ import QuoteView from "./QuoteView";
 export const metadata: Metadata = {
   title: "Fare Quote — YantraCabs",
   description:
-    "Live distance and all-inclusive fare estimate for your YantraCabs trip across North India.",
+    "Live distance and fare estimate for your YantraCabs trip across North India. Toll and driver allowance extra.",
 };
 
 export default function QuotePage() {

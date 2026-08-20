@@ -52,8 +52,14 @@ export default function PremiumCabsPreview() {
               <div className="flex items-baseline justify-between gap-2">
                 <h3 className="card-title">{c.name}</h3>
                 <span className="num-taxi shrink-0 text-2xl">
-                  ₹{c.rateOneWay}
-                  <span className="text-sm text-ink [text-shadow:none]">/km</span>
+                  {c.rateOneWay === null ? (
+                    <span className="text-base text-ink [text-shadow:none]">On request</span>
+                  ) : (
+                    <>
+                      ₹{c.rateOneWay}
+                      <span className="text-sm text-ink [text-shadow:none]">/km</span>
+                    </>
+                  )}
                 </span>
               </div>
               <p className="mt-2 text-sm leading-relaxed text-ink-muted">{c.blurb}</p>

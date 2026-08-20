@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import { gsap } from "@/lib/gsap";
 import { getRoute, type Place, type RouteResult } from "@/lib/geo";
 import { quoteFares } from "@/lib/fare";
+import { fareNote } from "@/data/site";
 import { Arrow, Pin, Route, Calendar, Clock, Users, Chat } from "@/components/Icons";
 import BookLink from "@/components/BookLink";
 import BookingDialog, { type BookingDraft } from "@/components/BookingDialog";
@@ -198,8 +199,7 @@ export default function QuoteView() {
         Choose Your <span className="hi">Cab</span>
       </h2>
       <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-muted">
-        All-inclusive estimates — toll, GST and driver allowance are covered.
-        State entry permits are paid at the booth.
+        {fareNote.long} State entry permits are paid at the booth.
       </p>
 
       <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -224,7 +224,7 @@ export default function QuoteView() {
                 <div className="flex items-start justify-between gap-3">
                   <h3 className="card-title">{v.name}</h3>
                   <span className="shrink-0 rounded-full bg-taxi px-2.5 py-1 text-[11px] font-bold uppercase tracking-widest text-ink">
-                    ₹{v.appliedRate}/km
+                    {v.appliedRate === null ? "On request" : `₹${v.appliedRate}/km`}
                   </span>
                 </div>
 
@@ -240,10 +240,12 @@ export default function QuoteView() {
                     Estimated total
                   </div>
                   <div className="num-taxi mt-2.5 text-[2.35rem]">
-                    ₹{v.fare.toLocaleString("en-IN")}
+                    {v.fare === null ? "Call us" : `₹${v.fare.toLocaleString("en-IN")}`}
                   </div>
                   <div className="mt-2 text-[11px] text-ink-muted">
-                    All-inclusive · {route.distanceKm} km
+                    {v.fare === null
+                      ? "Rate quoted on request"
+                      : `Estimate · ${route.distanceKm} km · toll & driver extra`}
                   </div>
                 </div>
 
@@ -265,7 +267,8 @@ export default function QuoteView() {
                     }
                     className="btn-taxi w-full !rounded-xl !py-3.5 text-xs"
                   >
-                    <Chat className="h-4 w-4" /> Book Now
+                    <Chat className="h-4 w-4" />
+                    {v.fare === null ? "Get a Quote" : "Book Now"}
                   </button>
                 </div>
               </article>

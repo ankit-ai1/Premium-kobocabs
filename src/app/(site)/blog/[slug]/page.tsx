@@ -114,7 +114,7 @@ export default function BlogPostPage({ params }: Props) {
               Ready For This <span className="hi">Trip?</span>
             </h2>
             <p className="relative mx-auto mt-3 max-w-md text-sm text-white/65">
-              Fixed all-inclusive fares, verified drivers and zero advance.
+              Clear per-kilometre fares, verified drivers and zero advance.
             </p>
             <BookLink className="btn-taxi relative mt-6">
               Book A Cab <Arrow className="h-4 w-4" />

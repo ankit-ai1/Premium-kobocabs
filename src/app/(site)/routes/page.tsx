@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
-import { routeGroups, site } from "@/data/site";
+import { routeGroups, tourPackages, site } from "@/data/site";
 import { PageHero } from "@/components/Bits";
 import { Arrow, Chat } from "@/components/Icons";
 import Reveal from "@/components/Reveal";
 import BookLink from "@/components/BookLink";
 import RouteBookLink from "@/components/RouteBookLink";
+
+/** Pre-typed WhatsApp enquiry for a tour package. */
+function whatsappTourLink(title: string) {
+  return `${site.whatsapp}?text=${encodeURIComponent(
+    `Hi YantraCabs, I would like a quote for the ${title} tour package.`
+  )}`;
+}
 
 export const metadata: Metadata = {
   title: `Routes — ${site.name}`,
@@ -61,6 +68,49 @@ export default function RoutesPage() {
         </Reveal>
       </section>
 
+      {/* Tour packages — multi-day trips, priced on request rather than per km. */}
+      <section className="border-t border-ink/[0.08] bg-paper py-20">
+        <div className="wrap">
+          <span className="eyebrow">Tour Packages</span>
+          <h2 className="display t-h2 mt-2.5">
+            Multi-Day <span className="hi">Tours &amp; Yatras</span>
+          </h2>
+          <p className="mt-4 max-w-2xl text-ink-muted">
+            Planned end to end with the same cab and driver throughout. Tell us your
+            dates and group size and we&apos;ll send a day-by-day plan with a fixed price.
+          </p>
+
+          <Reveal className="mt-12 grid gap-6 lg:grid-cols-2" stagger={0.08}>
+            {tourPackages.map((t) => (
+              <div key={t.title} data-reveal className="card p-6 sm:p-8">
+                <h3 className="card-title-lg">{t.title}</h3>
+                <p className="mt-2 text-sm text-ink-muted">{t.note}</p>
+
+                <div className="mt-6 flex flex-wrap gap-2.5">
+                  {t.items.map((i) => (
+                    <span
+                      key={i}
+                      className="rounded-full border border-ink/[0.08] bg-paper px-3.5 py-1.5 text-[13px] font-semibold text-ink"
+                    >
+                      {i}
+                    </span>
+                  ))}
+                </div>
+
+                <a
+                  href={whatsappTourLink(t.title)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn-outline mt-7 !rounded-full !py-3 text-xs"
+                >
+                  <Chat className="h-4 w-4" /> Ask for a quote
+                </a>
+              </div>
+            ))}
+          </Reveal>
+        </div>
+      </section>
+
       {/* somewhere else CTA */}
       <section className="border-t border-ink/[0.08] bg-paper py-24">
         <div className="wrap">
@@ -79,7 +129,7 @@ export default function RoutesPage() {
             </h2>
             <p className="relative mx-auto mt-4 max-w-xl text-ink-muted">
               Enter any pickup and drop — we cover {site.stats.routes} routes
-              across North India with the same fixed, all-inclusive pricing.
+              across North India with the same clear per-kilometre pricing.
             </p>
             <div className="relative mt-8 flex flex-wrap justify-center gap-4">
               <BookLink className="btn-taxi">

@@ -72,7 +72,7 @@ export default function PremiumCabsPage() {
             eyebrow="Vehicles"
             title="Premium Cabs"
             hi="In Detail"
-            sub="Transparent per-kilometre pricing. The fare you see includes driver allowance, toll and GST."
+            sub="Transparent per-kilometre pricing. Fares are estimates &mdash; toll and driver allowance are charged extra."
           />
           <Reveal className="mt-14 space-y-8" stagger={0.1}>
             {premiumCabs.map((c, i) => (
@@ -99,8 +99,14 @@ export default function PremiumCabsPage() {
                   <div className="flex items-baseline justify-between gap-3">
                     <h3 className="display t-h3">{c.name}</h3>
                     <span className="num-taxi shrink-0 text-4xl">
-                      ₹{c.rateOneWay}
-                      <span className="text-lg text-ink [text-shadow:none]">/km</span>
+                      {c.rateOneWay === null ? (
+                        <span className="text-xl text-ink [text-shadow:none]">On request</span>
+                      ) : (
+                        <>
+                          ₹{c.rateOneWay}
+                          <span className="text-lg text-ink [text-shadow:none]">/km</span>
+                        </>
+                      )}
                     </span>
                   </div>
                   <p className="mt-3 leading-relaxed text-ink-muted">{c.blurb}</p>

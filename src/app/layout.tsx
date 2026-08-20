@@ -24,11 +24,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
   title: `${site.name} — ${site.tagline}`,
   description:
-    "Book outstation and city cabs at fixed, all-inclusive prices. Verified drivers, clean vehicles, zero advance. 500+ routes across North India.",
+    "Book outstation and city cabs at clear per-kilometre rates. Verified drivers, clean vehicles, zero advance. 500+ routes across North India.",
   keywords: [
     "cab booking",
     "outstation taxi",
-    "Bareilly cab",
+    "Delhi cab",
     "Nainital taxi",
     "one-way cab",
     "YantraCabs",

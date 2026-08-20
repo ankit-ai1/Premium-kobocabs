@@ -7,7 +7,7 @@ export default function TopBar() {
       <div className="wrap flex h-9 items-center justify-between text-xs">
         <div className="flex items-center gap-5">
           <span className="flex items-center gap-1.5 text-white/70">
-            <Pin className="h-3.5 w-3.5 text-taxi" /> {site.city}, Uttar Pradesh
+            <Pin className="h-3.5 w-3.5 text-taxi" /> {site.city}
           </span>
           <a href={`tel:${site.phoneRaw}`} className="flex items-center gap-1.5 text-white/70 hover:text-taxi">
             <Phone className="h-3.5 w-3.5 text-taxi" /> {site.phone}

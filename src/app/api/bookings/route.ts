@@ -96,6 +96,15 @@ export async function POST(request: Request) {
     const appliedRate = rateFor(rates, tripType);
     const fareTotal = computeFare(route.distanceKm, rates, tripType);
 
+    // Some vehicles have no card rate in one direction (a one-way Tempo), so
+    // there is nothing to quote — send them to a human instead of inventing a price.
+    if (fareTotal === null || appliedRate === null) {
+      return jsonError(
+        "This cab is quoted on request for a one-way trip. Please WhatsApp or call us for a rate.",
+        409
+      );
+    }
+
     const { data: booking, error: insertError } = await supabase
       .from("bookings")
       .insert({

@@ -14,7 +14,7 @@ export default function FareEstimator() {
         eyebrow="Estimate"
         title="What Will My"
         hi="Trip Cost?"
-        sub="Move the slider to see all-inclusive one-way fares across every premium cab."
+        sub="Move the slider to see estimated one-way fares across every premium cab."
       />
 
       <div className="card mx-auto mt-12 max-w-4xl p-6 sm:p-8">
@@ -54,17 +54,19 @@ export default function FareEstimator() {
                 {c.name}
               </div>
               <div className="mt-2 font-display text-3xl tracking-wide">
-                ₹{(km * c.rateOneWay).toLocaleString("en-IN")}
+                {c.rateOneWay === null
+                  ? "On request"
+                  : `₹${(km * c.rateOneWay).toLocaleString("en-IN")}`}
               </div>
               <div className="mt-1 text-[11px] text-ink-muted">
-                ₹{c.rateOneWay}/km · {c.seats} seats
+                {c.rateOneWay === null ? "Call for rate" : `₹${c.rateOneWay}/km`} · {c.seats} seats
               </div>
             </div>
           ))}
         </div>
 
         <p className="mt-6 text-center text-xs text-ink-muted">
-          Estimates include driver allowance, toll and GST. State entry permits on
+          Estimates exclude toll and driver allowance. State entry permits on
           outstation routes are paid at the booth.
         </p>
       </div>

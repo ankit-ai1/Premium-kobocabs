@@ -1,4 +1,4 @@
-import { site } from "@/data/site";
+import { fareNote, site } from "@/data/site";
 
 /** Pre-typed booking message addressed to the YantraCabs WhatsApp number. */
 export function whatsappBookingLink(d: {
@@ -9,7 +9,8 @@ export function whatsappBookingLink(d: {
   trip: string;
   km: number;
   vehicle: string;
-  fare: number;
+  /** null when this direction is quoted on request. */
+  fare: number | null;
   /** Present once the booking is saved, so office staff can find it in admin. */
   bookingCode?: string;
   customerName?: string;
@@ -23,8 +24,12 @@ export function whatsappBookingLink(d: {
     `Trip: ${d.trip}`,
     `Distance: ${d.km} km`,
     `Vehicle: ${d.vehicle}`,
-    `Estimated Fare: ₹${d.fare.toLocaleString("en-IN")} (all-inclusive)`,
-  ].filter(Boolean);
+    d.fare === null
+      ? "Estimated Fare: on request — please share a rate for this route"
+      : `Estimated Fare: ₹${d.fare.toLocaleString("en-IN")}`,
+    "",
+    fareNote.whatsapp,
+  ].filter((line) => line !== null);
 
   return `${site.whatsapp}?text=${encodeURIComponent(lines.join("\n"))}`;
 }

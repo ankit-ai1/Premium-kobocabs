@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { whatsappBookingLink } from "@/lib/whatsapp";
+import { fareNote } from "@/data/site";
 import { Arrow, Chat } from "./Icons";
 
 export type BookingDraft = {
@@ -12,8 +13,11 @@ export type BookingDraft = {
   tripType: string;
   vehicleSlug: string;
   vehicleName: string;
-  /** Estimate shown on the card. The server recomputes the real figure. */
-  estimatedFare: number;
+  /**
+   * Estimate shown on the card, or null when the rate is quoted on request.
+   * The server recomputes the real figure either way.
+   */
+  estimatedFare: number | null;
   estimatedKm: number;
 };
 
@@ -147,6 +151,10 @@ export default function BookingDialog({
               />
             </div>
 
+            <p className="mt-4 text-left text-[11px] leading-relaxed text-ink-muted">
+              {fareNote.long}
+            </p>
+
             <a
               href={whatsappFor(result)}
               target="_blank"
@@ -167,8 +175,10 @@ export default function BookingDialog({
             <h3 className="card-title-lg">Confirm your booking</h3>
             <p className="mt-2 text-sm text-ink-muted">
               {draft.vehicleName} · {draft.from.label.split(",")[0]} →{" "}
-              {draft.to.label.split(",")[0]} · approx ₹
-              {draft.estimatedFare.toLocaleString("en-IN")}
+              {draft.to.label.split(",")[0]} ·{" "}
+              {draft.estimatedFare === null
+                ? "rate on request"
+                : `approx ₹${draft.estimatedFare.toLocaleString("en-IN")}`}
             </p>
 
             <div className="mt-6 grid gap-5">

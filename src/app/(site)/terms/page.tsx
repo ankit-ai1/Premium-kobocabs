@@ -50,18 +50,18 @@ export default function TermsPage() {
           your route and the per-kilometre rate for the vehicle you choose. Round
           trips are billed for both legs.
         </p>
-        <p>Quoted fares are all-inclusive of:</p>
+        <p>A quoted fare covers:</p>
+        <Points
+          items={[
+            "Fuel and vehicle running costs",
+            "GST",
+          ]}
+        />
+        <p>The following are <strong>not</strong> included and are payable by you:</p>
         <Points
           items={[
             "Toll charges along the route",
-            "GST",
             "Driver allowance, including night charges where applicable",
-            "Fuel and vehicle running costs",
-          ]}
-        />
-        <p>The following are not included and are payable by you:</p>
-        <Points
-          items={[
             "State entry permits, paid at the booth",
             "Parking charges at your destination",
             "Any extra kilometres beyond the booked route",
@@ -169,7 +169,7 @@ export default function TermsPage() {
       <Clause n={11} title="Governing law">
         <p>
           These terms are governed by the laws of India. Any dispute is subject to
-          the exclusive jurisdiction of the courts of {site.city}, Uttar Pradesh.
+          the exclusive jurisdiction of the courts of {site.city}.
         </p>
       </Clause>
 

@@ -6,7 +6,7 @@ import { useReveal } from "@/hooks/useGsap";
 const features = [
   { Icon: Check, title: "100% Safe", text: "Verified drivers and sanitised cabs on every single trip." },
   { Icon: Clock, title: "Fast Pickup", text: "Driver dispatched 30 minutes before your scheduled time." },
-  { Icon: Star, title: "Fixed Fares", text: "One all-inclusive price — toll, GST and allowance covered." },
+  { Icon: Star, title: "Fixed Fares", text: "One clear per-km rate. Toll and driver allowance billed at actuals." },
   { Icon: Users, title: "24×7 Support", text: "Call or WhatsApp our team any hour, any day of the year." },
 ];
 

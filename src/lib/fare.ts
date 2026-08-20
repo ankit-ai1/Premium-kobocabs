@@ -3,36 +3,47 @@ import { premiumCabs } from "@/data/site";
 /** A one-way drop is priced higher per km, because the return leg runs empty. */
 export type TripKind = "One Way" | "Round Trip" | string;
 
-/** The two per-km rates every vehicle carries. */
-export type Rates = { rateOneWay: number; rateRoundTrip: number };
+/**
+ * The per-km rates a vehicle carries.
+ *
+ * `rateOneWay` is null when that direction is quoted on request — the Tempo
+ * Traveller, whose one-way price depends on the route.
+ */
+export type Rates = { rateOneWay: number | null; rateRoundTrip: number };
 
-/** Which rate applies to this trip type. */
-export function rateFor(rates: Rates, trip: TripKind): number {
+/** Which rate applies to this trip, or null when it is quoted on request. */
+export function rateFor(rates: Rates, trip: TripKind): number | null {
   return trip === "Round Trip" ? rates.rateRoundTrip : rates.rateOneWay;
 }
 
 /**
- * All-inclusive fare, rounded to ₹10 with a ₹500 floor.
+ * Estimated fare, rounded to ₹10 with a ₹500 floor.
  *
  * A round trip bills the total distance of both legs, so the one-way distance
  * is doubled — at the lower round-trip rate.
+ *
+ * Returns null when the applicable rate is quoted on request, so callers show
+ * "call for rate" rather than inventing a number.
  */
-export function computeFare(km: number, rates: Rates, trip: TripKind): number {
+export function computeFare(km: number, rates: Rates, trip: TripKind): number | null {
+  const rate = rateFor(rates, trip);
+  if (rate === null) return null;
+
   const legs = trip === "Round Trip" ? 2 : 1;
-  const raw = km * legs * rateFor(rates, trip);
-  return Math.max(500, Math.round(raw / 10) * 10);
+  return Math.max(500, Math.round((km * legs * rate) / 10) * 10);
 }
 
 /** Shape the quote page renders, whether rates came from the DB or the fallback. */
 export type FareOption = {
   id: string;
   name: string;
-  rateOneWay: number;
+  rateOneWay: number | null;
   rateRoundTrip: number;
   seats: number;
-  /** The rate actually used for this quote — what the customer is being charged. */
-  appliedRate: number;
-  fare: number;
+  /** The rate used for this quote, or null when quoted on request. */
+  appliedRate: number | null;
+  /** null means no card price exists for this direction — ask us. */
+  fare: number | null;
 };
 
 /**
