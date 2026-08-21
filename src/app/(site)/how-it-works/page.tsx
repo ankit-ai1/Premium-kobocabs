@@ -3,7 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { steps, promises, img, site } from "@/data/site";
 import { PageHero, SectionHead } from "@/components/Bits";
-import { Arrow, Check } from "@/components/Icons";
+import { Arrow, Chat, Check } from "@/components/Icons";
+import { whatsappReviewLink } from "@/lib/whatsapp";
 import Reveal from "@/components/Reveal";
 import BookLink from "@/components/BookLink";
 
@@ -141,6 +142,22 @@ export default function HowItWorksPage() {
         <BookLink className="btn-ink mt-8">
           Book Your Cab <Arrow className="h-4 w-4" />
         </BookLink>
+
+        <div className="mt-14 border-t border-ink/[0.08] pt-10">
+          <h3 className="card-title-lg">Already travelled with us?</h3>
+          <p className="mx-auto mt-2 max-w-lg text-sm text-ink-muted">
+            Tell other riders how it went — your review helps someone book with
+            confidence.
+          </p>
+          <a
+            href={whatsappReviewLink()}
+            target="_blank"
+            rel="noreferrer"
+            className="btn-taxi mt-6"
+          >
+            <Chat className="h-4 w-4" /> Write a Review
+          </a>
+        </div>
       </section>
     </>
   );

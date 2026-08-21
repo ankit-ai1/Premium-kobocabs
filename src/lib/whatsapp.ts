@@ -33,3 +33,17 @@ export function whatsappBookingLink(d: {
 
   return `${site.whatsapp}?text=${encodeURIComponent(lines.join("\n"))}`;
 }
+
+/**
+ * Pre-typed review message, so the rider only has to fill in their experience.
+ * Reviews come in on WhatsApp like every other enquiry on this site.
+ */
+export function whatsappReviewLink() {
+  const msg = `Hi ${site.name}, I'd like to leave a review.
+
+Name:
+Trip (from → to):
+Rating (out of 5):
+My experience:`;
+  return `${site.whatsapp}?text=${encodeURIComponent(msg)}`;
+}

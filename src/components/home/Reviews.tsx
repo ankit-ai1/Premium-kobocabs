@@ -2,7 +2,8 @@
 
 import { reviews, site } from "@/data/site";
 import { SectionHead } from "@/components/Bits";
-import { Star } from "@/components/Icons";
+import { Chat, Star } from "@/components/Icons";
+import { whatsappReviewLink } from "@/lib/whatsapp";
 import { useReveal } from "@/hooks/useGsap";
 
 export default function Reviews() {
@@ -60,6 +61,21 @@ export default function Reviews() {
             </figcaption>
           </figure>
         ))}
+      </div>
+
+      {/* Riders can add their own story from here. */}
+      <div className="mt-12 flex flex-col items-center gap-3 text-center">
+        <a
+          href={whatsappReviewLink()}
+          target="_blank"
+          rel="noreferrer"
+          className="btn-taxi"
+        >
+          <Chat className="h-4 w-4" /> Write a Review
+        </a>
+        <p className="text-xs text-ink-muted">
+          Travelled with us? Send your review on WhatsApp — it takes a minute.
+        </p>
       </div>
     </section>
   );
