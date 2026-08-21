@@ -127,7 +127,8 @@ export const premiumCabs: Cab[] = [
     tag: "Roomy & Practical",
     blurb: "Extra room for the family without the SUV price tag.",
     models: ["Maruti Ertiga", "Maruti XL6"],
-    image: img.suv,
+    image:
+      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1787333396/ChatGPT_Image_Aug_21_2026_10_59_27_PM_wlxkfs.png",
     bestFor: ["Family Groups (5–6)", "Weekend Trips"],
   },
   {
@@ -140,7 +141,8 @@ export const premiumCabs: Cab[] = [
     tag: "Powerful & Spacious",
     blurb: "The choice for hills, long hauls and travelling in comfort.",
     models: ["Kia Carens"],
-    image: img.suv,
+    image:
+      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1787333625/ChatGPT_Image_Aug_21_2026_11_03_21_PM_jo2eiw.png",
     bestFor: ["Hill Stations", "Char Dham Yatra"],
   },
   {

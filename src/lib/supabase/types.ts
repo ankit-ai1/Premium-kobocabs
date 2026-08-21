@@ -109,3 +109,23 @@ export type AdminUser = {
   active: boolean;
   created_at: string;
 };
+
+/** A tap on any "chat on WhatsApp" link — see 0005_whatsapp_leads.sql. */
+export type WhatsAppLeadKind =
+  | "booking_widget"
+  | "booking_dialog"
+  | "contact_form"
+  | "floating_button"
+  | "link";
+
+export type WhatsAppLead = {
+  id: string;
+  kind: WhatsAppLeadKind;
+  label: string | null;
+  page: string | null;
+  message: string | null;
+  referrer: string | null;
+  user_agent: string | null;
+  handled: boolean;
+  created_at: string;
+};

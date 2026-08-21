@@ -86,6 +86,25 @@ export async function setEnquiryStatus(formData: FormData): Promise<ActionResult
   return { ok: true };
 }
 
+// ---------- whatsapp leads ----------
+
+/** Ticks a WhatsApp hand-off off the list once someone has replied to it. */
+export async function setWhatsAppLeadHandled(formData: FormData): Promise<ActionResult> {
+  const id = str(formData.get("id"), 40);
+  if (!id) return fail("Invalid request.");
+
+  const db = await adminDb();
+  const { error } = await db
+    .from("whatsapp_leads")
+    .update({ handled: formData.get("handled") === "true" })
+    .eq("id", id);
+  if (error) return fail(error.message);
+
+  revalidatePath("/admin/enquiries");
+  revalidatePath("/admin");
+  return { ok: true };
+}
+
 // ---------- vehicles / rates ----------
 
 export async function updateVehicle(formData: FormData): Promise<ActionResult> {

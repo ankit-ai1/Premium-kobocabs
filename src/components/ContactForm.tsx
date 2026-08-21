@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { site } from "@/data/site";
 import { Arrow } from "./Icons";
+import { logWhatsApp } from "@/lib/wa-log";
 
 export default function ContactForm() {
   const [form, setForm] = useState({ name: "", phone: "", email: "", message: "" });
@@ -20,12 +21,14 @@ export default function ContactForm() {
   const submit = async () => {
     setBusy(true);
     setError(null);
+    let saved = false;
     try {
       const res = await fetch("/api/enquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
+      saved = res.ok;
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
         setError(data.error ?? "Could not save your details — opening WhatsApp instead.");
@@ -39,6 +42,11 @@ export default function ContactForm() {
     const msg = `New enquiry from ${form.name || "—"} (${form.phone || "—"}, ${
       form.email || "—"
     }): ${form.message || "—"}`;
+    // A saved enquiry is already in the admin inbox with a name and phone.
+    // Only log the hand-off when the save failed, so the lead is not lost.
+    if (!saved) {
+      logWhatsApp({ kind: "contact_form", label: "Contact form (not saved)", message: msg });
+    }
     window.open(`${site.whatsapp}?text=${encodeURIComponent(msg)}`, "_blank");
     setSent(true);
   };

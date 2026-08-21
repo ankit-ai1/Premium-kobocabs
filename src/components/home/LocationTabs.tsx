@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { gsap } from "@/lib/gsap";
-import { img } from "@/data/site";
 import { SectionHead } from "@/components/Bits";
 import { Check, Arrow } from "@/components/Icons";
 
@@ -50,27 +49,32 @@ const cities: Record<
   },
   Shimla: {
     blurb: "Comfortable mountain rides to Shimla with experienced hill drivers and flexible timings.",
-    image: img.mountains,
+    image:
+      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1787331833/ChatGPT_Image_Aug_21_2026_10_32_27_PM_mdwfhv.png",
     points: ["Experienced hill drivers", "Hotel pickups", "Sightseeing packages"],
   },
   Manali: {
     blurb: "Plan a smooth ride to Manali with trusted drivers who know the mountain roads.",
-    image: img.mountains,
+    image:
+      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1787332124/ChatGPT_Image_Aug_21_2026_10_38_08_PM_ga7all.png",
     points: ["Mountain-ready cabs", "Door-to-door service", "Multi-day trips"],
   },
   Mussoorie: {
     blurb: "Easy transfers to the Queen of the Hills, from airport pickups to weekend escapes.",
-    image: img.hills,
+    image:
+      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1787332512/ChatGPT_Image_Aug_21_2026_10_44_42_PM_vjanyg.png",
     points: ["Hill station transfers", "Sightseeing rides", "Early pickups"],
   },
   Dhanaulti: {
     blurb: "Quiet mountain journeys to Dhanaulti with patient drivers and comfortable cabs.",
-    image: img.hills,
+    image:
+      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1787332796/ChatGPT_Image_Aug_21_2026_10_49_32_PM_ttnzbo.png",
     points: ["Scenic hill routes", "Flexible timings", "Family-friendly rides"],
   },
   Jammu: {
     blurb: "Reliable rides across Jammu and onward to the region's temples, valleys and towns.",
-    image: img.mountains,
+    image:
+      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1787333031/ChatGPT_Image_Aug_21_2026_10_53_27_PM_ettgcn.png",
     points: ["Railway pickups", "Pilgrimage transfers", "Outstation cabs"],
   },
 };

@@ -6,6 +6,7 @@ import { premiumCabs, site } from "@/data/site";
 import { Search, Pin, Route, Clock, Calendar, Car } from "./Icons";
 import PlaceField from "./PlaceField";
 import { autocomplete, type Place } from "@/lib/geo";
+import { logWhatsApp } from "@/lib/wa-log";
 
 type Point = { query: string; place: Place | null };
 
@@ -114,6 +115,11 @@ export default function BookingWidget({ compact = false }: { compact?: boolean }
     const msg = `Hi YantraCabs! I'd like to book a ${form.cab} (${form.trip}) from ${
       pickup.query || "—"
     } to ${drop.query || "—"} on ${form.date || "—"} at ${form.time}${back}.`;
+    logWhatsApp({
+      kind: "booking_widget",
+      label: "Booking widget — WhatsApp fallback",
+      message: msg,
+    });
     window.open(`${site.whatsapp}?text=${encodeURIComponent(msg)}`, "_blank");
   };
 

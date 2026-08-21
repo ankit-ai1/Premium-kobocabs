@@ -74,7 +74,7 @@ export default function PremiumCabsPage() {
             hi="In Detail"
             sub="Transparent per-kilometre pricing. Fares are estimates &mdash; toll and driver allowance are charged extra."
           />
-          <Reveal className="mt-14 space-y-8" stagger={0.1}>
+          <Reveal className="mx-auto mt-14 max-w-[1280px] space-y-8" stagger={0.1}>
             {premiumCabs.map((c, i) => (
               <article
                 key={c.id}
@@ -83,7 +83,7 @@ export default function PremiumCabsPage() {
                   i % 2 ? "lg:[&>div:first-child]:order-2" : ""
                 }`}
               >
-                <div className="relative aspect-[16/10] overflow-hidden bg-ink/5 lg:aspect-auto">
+                <div className="relative aspect-[16/10] overflow-hidden bg-ink/5 lg:aspect-auto lg:min-h-[26rem]">
                   <Image
                     src={c.image}
                     alt={c.name}

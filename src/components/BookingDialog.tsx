@@ -159,6 +159,9 @@ export default function BookingDialog({
               href={whatsappFor(result)}
               target="_blank"
               rel="noreferrer"
+              /* The booking is already saved — it belongs in Bookings, not the
+                 WhatsApp lead list. */
+              data-wa-skip=""
               className="btn-taxi mt-6 w-full"
             >
               <Chat className="h-4 w-4" /> Continue on WhatsApp

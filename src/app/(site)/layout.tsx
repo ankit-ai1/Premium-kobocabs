@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFab from "@/components/WhatsAppFab";
+import WhatsAppTracker from "@/components/WhatsAppTracker";
 import SmoothScroll from "@/components/SmoothScroll";
 import ScrollProgress from "@/components/ScrollProgress";
 import Preloader from "@/components/Preloader";
@@ -19,6 +20,8 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
         <Footer />
         <WhatsAppFab />
+        {/* Logs every WhatsApp hand-off into the admin Enquiries screen. */}
+        <WhatsAppTracker />
       </SmoothScroll>
     </>
   );
