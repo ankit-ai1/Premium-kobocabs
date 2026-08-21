@@ -36,12 +36,35 @@ const LOCAL_PLACES: Place[] = [
   { label: "Ayodhya, Uttar Pradesh, India", lat: 26.7950, lon: 82.1945 },
   { label: "Prayagraj, Uttar Pradesh, India", lat: 25.4358, lon: 81.8463 },
   { label: "Moradabad, Uttar Pradesh, India", lat: 28.8380, lon: 78.7736 },
+  { label: "Mumbai, Maharashtra, India", lat: 19.0760, lon: 72.8777 },
+  { label: "Pune, Maharashtra, India", lat: 18.5204, lon: 73.8567 },
+  { label: "Bengaluru, Karnataka, India", lat: 12.9716, lon: 77.5946 },
+  { label: "Kolkata, West Bengal, India", lat: 22.5726, lon: 88.3639 },
+  { label: "Chennai, Tamil Nadu, India", lat: 13.0827, lon: 80.2707 },
+  { label: "Hyderabad, Telangana, India", lat: 17.3850, lon: 78.4867 },
+  { label: "Ahmedabad, Gujarat, India", lat: 23.0225, lon: 72.5714 },
+  { label: "Surat, Gujarat, India", lat: 21.1702, lon: 72.8311 },
+  { label: "Bhopal, Madhya Pradesh, India", lat: 23.2599, lon: 77.4126 },
+  { label: "Indore, Madhya Pradesh, India", lat: 22.7196, lon: 75.8577 },
+  { label: "Patna, Bihar, India", lat: 25.5941, lon: 85.1376 },
+  { label: "Guwahati, Assam, India", lat: 26.1445, lon: 91.7362 },
+  { label: "Srinagar, Jammu and Kashmir, India", lat: 34.0837, lon: 74.7973 },
+  { label: "Jammu, Jammu and Kashmir, India", lat: 32.7266, lon: 74.8570 },
+  { label: "Shimla, Himachal Pradesh, India", lat: 31.1048, lon: 77.1734 },
+  { label: "Manali, Himachal Pradesh, India", lat: 32.2396, lon: 77.1887 },
+  { label: "Kota, Rajasthan, India", lat: 25.2138, lon: 75.8648 },
+  { label: "Jodhpur, Rajasthan, India", lat: 26.2389, lon: 73.0243 },
+  { label: "Udaipur, Rajasthan, India", lat: 24.5854, lon: 73.7125 },
+  { label: "Gwalior, Madhya Pradesh, India", lat: 26.2183, lon: 78.1828 },
 ];
 
 function localSuggestions(text: string): Place[] {
   const query = text.trim().toLowerCase();
-  if (query.length < 2) return [];
-  return LOCAL_PLACES.filter((place) => place.label.toLowerCase().includes(query)).slice(0, 6);
+  if (!query) return [];
+  return LOCAL_PLACES.filter((place) => {
+    const city = place.label.split(",", 1)[0].trim().toLowerCase();
+    return query.length < 3 ? city.startsWith(query) : city.includes(query);
+  }).slice(0, 6);
 }
 
 /** Live address suggestions. Returns [] on any failure — never throws. */

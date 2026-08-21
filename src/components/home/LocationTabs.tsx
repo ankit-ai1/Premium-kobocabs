@@ -48,6 +48,31 @@ const cities: Record<
       "https://res.cloudinary.com/dtg3lepr4/image/upload/v1786517551/ChatGPT_Image_Aug_12_2026_12_22_08_PM_nayytq.png",
     points: ["Wedding cabs", "Business travel", "Local sightseeing"],
   },
+  Shimla: {
+    blurb: "Comfortable mountain rides to Shimla with experienced hill drivers and flexible timings.",
+    image: img.mountains,
+    points: ["Experienced hill drivers", "Hotel pickups", "Sightseeing packages"],
+  },
+  Manali: {
+    blurb: "Plan a smooth ride to Manali with trusted drivers who know the mountain roads.",
+    image: img.mountains,
+    points: ["Mountain-ready cabs", "Door-to-door service", "Multi-day trips"],
+  },
+  Mussoorie: {
+    blurb: "Easy transfers to the Queen of the Hills, from airport pickups to weekend escapes.",
+    image: img.hills,
+    points: ["Hill station transfers", "Sightseeing rides", "Early pickups"],
+  },
+  Dhanaulti: {
+    blurb: "Quiet mountain journeys to Dhanaulti with patient drivers and comfortable cabs.",
+    image: img.hills,
+    points: ["Scenic hill routes", "Flexible timings", "Family-friendly rides"],
+  },
+  Jammu: {
+    blurb: "Reliable rides across Jammu and onward to the region's temples, valleys and towns.",
+    image: img.mountains,
+    points: ["Railway pickups", "Pilgrimage transfers", "Outstation cabs"],
+  },
 };
 
 export default function LocationTabs() {

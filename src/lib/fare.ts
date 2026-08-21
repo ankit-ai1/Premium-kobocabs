@@ -72,6 +72,8 @@ export function quoteFares(
   return source.map((v) => ({
     ...v,
     appliedRate: rateFor(v, trip),
-    fare: computeFare(km, v, trip),
+    // Tempo Traveller shows its per-km starting rate, but the final price is
+    // confirmed per route rather than calculated as a fixed estimate.
+    fare: v.id === "tempo" ? null : computeFare(km, v, trip),
   }));
 }

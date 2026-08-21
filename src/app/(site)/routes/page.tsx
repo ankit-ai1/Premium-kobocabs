@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { routeGroups, tourPackages, site } from "@/data/site";
+import { oneWayTaxiRoutes, routeGroups, tourPackages, site } from "@/data/site";
 import { PageHero } from "@/components/Bits";
 import { Arrow, Chat } from "@/components/Icons";
 import Reveal from "@/components/Reveal";
@@ -106,6 +106,34 @@ export default function RoutesPage() {
                   <Chat className="h-4 w-4" /> Ask for a quote
                 </a>
               </div>
+            ))}
+          </Reveal>
+        </div>
+      </section>
+
+      {/* One-way service destinations. */}
+      <section className="border-t border-ink/[0.08] bg-white py-20">
+        <div className="wrap">
+          <span className="eyebrow">One-Way Taxi Service</span>
+          <h2 className="display t-h2 mt-2.5">
+            One-Way <span className="hi">Taxi Service</span>
+          </h2>
+          <p className="mt-4 max-w-2xl text-ink-muted">
+            Book a reliable one-way cab from Delhi NCR and across North India to
+            these popular cities, towns and pilgrimage destinations.
+          </p>
+
+          <Reveal className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5" stagger={0.02}>
+            {oneWayTaxiRoutes.map((destination) => (
+              <RouteBookLink
+                key={destination}
+                route={`Delhi NCR to ${destination}`}
+                className="group flex items-center justify-between gap-2 rounded-full border border-ink/[0.08] bg-paper px-4 py-2.5 text-[13px] font-semibold text-ink transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-taxi/50 hover:bg-taxi/10"
+                style={{ boxShadow: "var(--shadow-card)" }}
+              >
+                <span className="truncate">{destination}</span>
+                <Arrow className="h-3.5 w-3.5 shrink-0 -translate-x-1 text-ink-muted opacity-0 transition-all duration-300 ease-out group-hover:translate-x-0 group-hover:text-ink group-hover:opacity-100" />
+              </RouteBookLink>
             ))}
           </Reveal>
         </div>

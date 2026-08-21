@@ -31,14 +31,14 @@ export default function PlaceField({
   // Set right after a pick so the resulting query change doesn't re-search.
   const justPicked = useRef(false);
 
-  // Debounced lookup — 500ms / 3 chars minimum keeps us inside Nominatim's
-  // fair-use policy.
+  // Local suggestions can start immediately; remote lookup remains limited to
+  // 3+ characters to respect Nominatim's fair-use policy.
   useEffect(() => {
     if (justPicked.current) {
       justPicked.current = false;
       return;
     }
-    if (query.trim().length < 3) {
+    if (!query.trim()) {
       setResults([]);
       setLoading(false);
       return;

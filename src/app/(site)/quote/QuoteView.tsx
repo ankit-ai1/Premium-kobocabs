@@ -244,7 +244,9 @@ export default function QuoteView() {
                   </div>
                   <div className="mt-2 text-[11px] text-ink-muted">
                     {v.fare === null
-                      ? "Rate quoted on request"
+                      ? v.id === "tempo"
+                        ? "Ask for final price"
+                        : "Rate quoted on request"
                       : `Estimate · ${route.distanceKm} km · toll & driver extra`}
                   </div>
                 </div>
@@ -268,7 +270,7 @@ export default function QuoteView() {
                     className="btn-taxi w-full !rounded-xl !py-3.5 text-xs"
                   >
                     <Chat className="h-4 w-4" />
-                    {v.fare === null ? "Get a Quote" : "Book Now"}
+                    {v.id === "tempo" ? "Ask for final price" : v.fare === null ? "Get a Quote" : "Book Now"}
                   </button>
                 </div>
               </article>
