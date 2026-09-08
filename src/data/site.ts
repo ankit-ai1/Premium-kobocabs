@@ -9,12 +9,12 @@ export const site = {
   since: 2020,
   city: "New Delhi",
   state: "Delhi",
-  phone: "+91 8755 718911",
-  phoneRaw: "918755718911",
+  phone: "+91 8006 076828",
+  phoneRaw: "918006076828",
   email: "YantraCabs@gmail.com",
   address: "Bhavbhuti Marg, Kamla Market, Ajmeri Gate, New Delhi, Delhi 110002",
   hours: "Mon – Sun, 6 AM – 10 PM IST",
-  whatsapp: "https://wa.me/918755718911",
+  whatsapp: "https://wa.me/918006076828",
   mapUrl:
     "https://maps.google.com/?q=Bhavbhuti+Marg,+Kamla+Market,+Ajmeri+Gate,+New+Delhi,+Delhi+110002",
   socials: {
