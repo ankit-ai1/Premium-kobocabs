@@ -24,7 +24,14 @@ export default function LoginForm() {
     });
 
     if (signInError) {
-      setError("Incorrect email or password.");
+      // Only a 400 means the credentials were wrong. Anything else — the
+      // project paused, DNS gone, offline — must not masquerade as a bad
+      // password, or someone resets a password that was never the problem.
+      setError(
+        signInError.status === 400
+          ? "Incorrect email or password."
+          : "Could not reach the login server. Check that the Supabase project is running."
+      );
       setBusy(false);
       return;
     }
