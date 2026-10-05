@@ -38,42 +38,91 @@ export default function BlogPostPage({ params }: Props) {
 
   return (
     <article className="pb-24">
-      {/* Hero image */}
-      <div className="relative h-[38vh] min-h-[260px] w-full overflow-hidden bg-ink/5 sm:h-[46vh]">
-        <Image
-          src={post.image}
-          alt={post.title}
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/25 to-transparent" />
-      </div>
-
-      {/* Header */}
-      <div className="wrap -mt-20 relative">
-        <div className="mx-auto max-w-3xl">
-          <div className="card p-7 sm:p-9">
-            <span className="inline-flex rounded-full bg-taxi px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-widest text-ink">
-              {post.category}
-            </span>
-            {/* Same Anton + yellow treatment as the hero and every SectionHead */}
-            <DisplayHeading
-              as="h1"
-              text={post.title}
-              hi={post.titleHi}
-              className="mt-4 text-[clamp(1.75rem,4vw,2.75rem)]"
-            />
-            <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-ink/[0.08] pt-4 text-xs font-semibold text-ink-muted">
-              <span>{post.date}</span>
-              <span className="flex items-center gap-1.5">
-                <Clock className="h-4 w-4" /> {post.read}
+      {post.poster ? (
+        // A 4:5 poster can't fill a wide banner without cropping its baked-in
+        // text, so it gets its own column at its own shape, title beside it.
+        <section className="relative overflow-hidden border-b border-ink/[0.08] bg-paper">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -right-32 -top-40 h-[480px] w-[480px] rounded-full opacity-60 blur-3xl"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(255,206,0,0.35) 0%, rgba(255,206,0,0) 70%)",
+            }}
+          />
+          <div className="wrap relative grid items-center gap-10 py-12 sm:py-16 md:grid-cols-[minmax(0,400px)_1fr] lg:gap-16">
+            <div className="mx-auto w-full max-w-[400px] rounded-[1.75rem] border border-ink/10 bg-white p-2 shadow-[0_28px_70px_-28px_rgba(11,11,11,0.5)]">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[1.35rem] bg-ink/5">
+                <Image
+                  src={post.image}
+                  alt={post.title}
+                  fill
+                  priority
+                  sizes="(max-width:768px) 100vw, 400px"
+                  className="object-cover"
+                />
+              </div>
+            </div>
+            <div>
+              <span className="inline-flex rounded-full bg-taxi px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-widest text-ink">
+                {post.category}
               </span>
+              <DisplayHeading
+                as="h1"
+                text={post.title}
+                hi={post.titleHi}
+                className="mt-4 text-[clamp(1.9rem,4.2vw,3.25rem)]"
+              />
+              <span className="mt-5 block h-1 w-16 rounded-full bg-taxi" />
+              <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-semibold text-ink-muted">
+                <span>{post.date}</span>
+                <span className="flex items-center gap-1.5">
+                  <Clock className="h-4 w-4" /> {post.read}
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </section>
+      ) : (
+        <>
+          {/* Hero image */}
+          <div className="relative h-[38vh] min-h-[260px] w-full overflow-hidden bg-ink/5 sm:h-[46vh]">
+            <Image
+              src={post.image}
+              alt={post.title}
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/25 to-transparent" />
+          </div>
+
+          {/* Header */}
+          <div className="wrap -mt-20 relative">
+            <div className="mx-auto max-w-3xl">
+              <div className="card p-7 sm:p-9">
+                <span className="inline-flex rounded-full bg-taxi px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-widest text-ink">
+                  {post.category}
+                </span>
+                {/* Same Anton + yellow treatment as the hero and every SectionHead */}
+                <DisplayHeading
+                  as="h1"
+                  text={post.title}
+                  hi={post.titleHi}
+                  className="mt-4 text-[clamp(1.75rem,4vw,2.75rem)]"
+                />
+                <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-ink/[0.08] pt-4 text-xs font-semibold text-ink-muted">
+                  <span>{post.date}</span>
+                  <span className="flex items-center gap-1.5">
+                    <Clock className="h-4 w-4" /> {post.read}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
 
       {/* Body */}
       <div className="wrap mt-12">
@@ -144,7 +193,7 @@ export default function BlogPostPage({ params }: Props) {
                   href={`/blog/${p.slug}`}
                   className="card card-hover group flex flex-col overflow-hidden"
                 >
-                  <div className="relative aspect-[16/10] overflow-hidden bg-ink/5">
+                  <div className={`relative overflow-hidden bg-ink/5 ${p.poster ? "aspect-[4/5]" : "aspect-[16/10]"}`}>
                     <Image
                       src={p.image}
                       alt={p.title}

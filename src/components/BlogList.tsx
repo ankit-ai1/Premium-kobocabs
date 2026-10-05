@@ -132,22 +132,40 @@ export default function BlogList() {
           {featured && (
             <Link
               href={`/blog/${featured.slug}`}
-              className="card card-hover group block overflow-hidden"
+              // A 4:5 poster sits beside the text at its own shape; a wide
+              // banner would crop the text baked into it.
+              className={`card card-hover group overflow-hidden ${
+                featured.poster ? "grid sm:grid-cols-[2fr_3fr]" : "block"
+              }`}
             >
-              <div className="relative aspect-[21/9] overflow-hidden bg-ink/5">
+              <div
+                className={`relative overflow-hidden bg-ink/5 ${
+                  featured.poster ? "aspect-[4/5]" : "aspect-[21/9]"
+                }`}
+              >
                 <Image
                   src={featured.image}
                   alt={featured.title}
                   fill
-                  sizes="(max-width:1024px) 100vw, 60vw"
+                  sizes={featured.poster ? "(max-width:640px) 100vw, 30vw" : "(max-width:1024px) 100vw, 60vw"}
                   className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
                 />
-                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink/50 to-transparent" />
-                <span className="absolute left-4 top-4 rounded-full bg-taxi px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-widest text-ink shadow-[0_6px_16px_-4px_rgba(11,11,11,0.4)]">
-                  {featured.category}
-                </span>
+                {!featured.poster && (
+                  <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink/50 to-transparent" />
+                )}
+                {/* On a poster the badge would sit on its logo, so it moves to the text side. */}
+                {!featured.poster && (
+                  <span className="absolute left-4 top-4 rounded-full bg-taxi px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-widest text-ink shadow-[0_6px_16px_-4px_rgba(11,11,11,0.4)]">
+                    {featured.category}
+                  </span>
+                )}
               </div>
-              <div className="p-7">
+              <div className={`p-7 ${featured.poster ? "flex flex-col justify-center sm:p-8" : ""}`}>
+                {featured.poster && (
+                  <span className="mb-4 inline-flex w-fit rounded-full bg-taxi px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-widest text-ink">
+                    {featured.category}
+                  </span>
+                )}
                 <div className="text-[11px] font-bold uppercase tracking-widest text-ink-muted">
                   {featured.date}
                 </div>
@@ -181,7 +199,7 @@ export default function BlogList() {
                   href={`/blog/${p.slug}`}
                   className="card card-hover group flex flex-col overflow-hidden"
                 >
-                  <div className="relative aspect-[16/10] overflow-hidden bg-ink/5">
+                  <div className={`relative overflow-hidden bg-ink/5 ${p.poster ? "aspect-[4/5]" : "aspect-[16/10]"}`}>
                     <Image
                       src={p.image}
                       alt={p.title}

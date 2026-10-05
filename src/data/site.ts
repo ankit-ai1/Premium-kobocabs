@@ -609,6 +609,8 @@ export type Post = {
   read: string;
   image: string;
   featured?: boolean;
+  /** Portrait poster with text baked in: shown whole, never cropped. */
+  poster?: boolean;
   /** Substring of the title to render in the yellow .hi style. */
   titleHi?: string;
   /** Article body: section headings and paragraphs, in order. */
@@ -732,8 +734,12 @@ const postContent: Record<string, PostBlock[]> = {
     { h2: "Choosing your cab" },
     { p: "For a group of four, a sedan handles the route comfortably. Six or more, or a trip continuing to Mukteshwar or Ranikhet, is better served by an SUV — the extra ground clearance matters on the narrower hill roads beyond Nainital. On the return leg, most travellers prefer to start down by 4 PM; the descent after dark is manageable but slow." },
   ],
-  "char-dham-yatra-2025": [
-    { p: "The Char Dham circuit links four shrines in Uttarakhand — Yamunotri, Gangotri, Kedarnath and Badrinath — and is traditionally travelled west to east in that order. The full loop from Haridwar runs about 1,600 km and takes ten to twelve days at a sensible pace. Compressing it into under a week is possible but leaves no margin for weather, and the mountain roads punish a tight schedule." },
+  "char-dham-yatra-2026": [
+    { p: "The Char Dham circuit links four shrines in Uttarakhand — Yamunotri, Gangotri, Kedarnath and Badrinath — and is traditionally travelled west to east in that order. For travellers from Delhi or Bareilly, the yatra really begins at Haridwar, the gateway where the plains end and the circuit starts. The full loop from Haridwar runs about 1,600 km and takes ten to twelve days at a sensible pace. Compressing it into under a week is possible but leaves no margin for weather, and the mountain roads punish a tight schedule." },
+    { h2: "Starting from Delhi" },
+    { p: "Delhi to Haridwar is about 220 km, and the new Delhi–Dehradun expressway has brought the drive down to roughly four and a half hours. Leave Delhi by 5 AM and you reach Haridwar for breakfast with the whole day ahead — enough to push on to Barkot, the base for Yamunotri, the same evening. A cab booked from Delhi for the whole circuit saves changing vehicles at Haridwar, and the same driver brings you home at the end." },
+    { h2: "Starting from Bareilly" },
+    { p: "Bareilly to Haridwar is around 240 km via Moradabad and Najibabad, a five-to-six-hour drive on mostly good highway. An early start means you avoid the Moradabad traffic and reach Haridwar by midday. Families from Bareilly, Pilibhit, Shahjahanpur and Budaun often prefer this route to going via Delhi, since it skips the capital's traffic entirely. Book the cab from your doorstep for the full yatra, and the return is just as direct." },
     { h2: "When the portals open" },
     { p: "The temples open in late April or early May, depending on the Hindu calendar, and close around Diwali. May, June, September and October are the practical windows. The monsoon months of July and August see frequent landslides on the Rishikesh–Rudraprayag corridor, and while the roads usually reopen within hours, a single slip can cost a day." },
     { h2: "The stretches you walk" },
@@ -805,6 +811,20 @@ const postContent: Record<string, PostBlock[]> = {
 };
 
 export const posts: Post[] = [
+  {
+    slug: "char-dham-yatra-2026",
+    title: "Char Dham Yatra 2026: Complete Cab Travel Guide from Delhi & Bareilly",
+    excerpt:
+      "Yamunotri, Gangotri, Kedarnath and Badrinath by cab from Delhi or Bareilly — the drive to Haridwar, the full circuit, when to go and which cab to book.",
+    category: "Pilgrimage",
+    date: "October 5, 2026",
+    read: "7 min",
+    image:
+      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1791217499/file_000000003d38820aa233e2162eaef3d9_ogtb72.png",
+    poster: true,
+    titleHi: "Delhi & Bareilly",
+    content: postContent["char-dham-yatra-2026"],
+  },
   {
     slug: "rishikesh-cab-travel-guide-2025",
     title: "Rishikesh by Cab: Ganga Aarti, Rafting & Yoga",
@@ -940,19 +960,6 @@ export const posts: Post[] = [
     featured: true,
     titleHi: "Travel Guide 2025",
     content: postContent["bareilly-to-nainital-guide-2025"],
-  },
-  {
-    slug: "char-dham-yatra-2025",
-    title: "Char Dham Yatra 2025: Complete Cab Travel Guide from North India",
-    excerpt:
-      "Embark on the sacred Char Dham Yatra — Yamunotri, Gangotri, Kedarnath, and Badrinath — with complete route details and best times to travel.",
-    category: "Pilgrimage",
-    date: "March 28, 2025",
-    read: "7 min",
-    image:
-      "https://res.cloudinary.com/dtg3lepr4/image/upload/v1786518634/ChatGPT_Image_Aug_12_2026_12_40_17_PM_w9aqpu.png",
-    titleHi: "from North India",
-    content: postContent["char-dham-yatra-2025"],
   },
   {
     slug: "delhi-to-agra-by-cab",
