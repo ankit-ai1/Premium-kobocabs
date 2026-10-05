@@ -1,5 +1,6 @@
 import Hero from "@/components/home/Hero";
 import DriveStrip from "@/components/home/DriveStrip";
+import YatraOffers from "@/components/home/YatraOffers";
 import BookBottom from "@/components/home/BookBottom";
 import PremiumCabsPreview from "@/components/home/PremiumCabsPreview";
 import About from "@/components/home/About";
@@ -18,6 +19,7 @@ export default function HomePage() {
       <BookHashScroll />
       <Hero />
       <DriveStrip />
+      <YatraOffers />
       <BookBottom />
       <PremiumCabsPreview />
       <About />
