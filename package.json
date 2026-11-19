@@ -2,11 +2,11 @@
   "name": "kobocabs",
   "version": "1.0.0",
   "private": true,
-  "description": "KoboCabs — Premium outstation & city cab booking across North India",
+  "description": "KoboCabs \u2014 Premium outstation & city cab booking across North India",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "node init && next dev",
+    "build": "node init && next build",
+    "start": "node init && next start",
     "lint": "next lint"
   },
   "dependencies": {
